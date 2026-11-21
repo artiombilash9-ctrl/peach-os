@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Peach Session Setup
+Comment=Peach OS session defaults (wallpaper, welcome)
+Exec=peach-session-setup
+OnlyShowIn=XFCE;
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

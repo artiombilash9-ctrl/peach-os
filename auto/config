@@ -1,0 +1,34 @@
+#!/bin/sh
+# Peach OS 1.0 "Trixie" -- configurazione live-build
+#
+# Questo file viene eseguito automaticamente da `lb build`.
+# Per rigenerare solo la configurazione: lb config
+
+set -e
+
+lb config noauto \
+	--mode debian \
+	--system live \
+	--initsystem systemd \
+	--distribution trixie \
+	--architectures amd64 \
+	--linux-flavours amd64 \
+	--linux-packages linux-image \
+	--binary-images iso-hybrid \
+	--bootloaders "grub-pc,grub-efi" \
+	--debian-installer false \
+	--archive-areas "main contrib non-free non-free-firmware" \
+	--apt-indices false \
+	--apt-recommends true \
+	--firmware-binary false \
+	--firmware-chroot false \
+	--memtest none \
+	--compression xz \
+	--checksums sha256 \
+	--zsync false \
+	--image-name peachos \
+	--iso-application "Peach OS" \
+	--iso-volume "PEACHOS" \
+	--iso-publisher "Peach OS Project" \
+	--bootappend-live "boot=live components username=peach user-fullname=Peach hostname=peachos locales=it_IT.UTF-8 keyboard-layouts=it keyboard-model=pc105 timezone=Europe/Rome quiet" \
+	"$@"

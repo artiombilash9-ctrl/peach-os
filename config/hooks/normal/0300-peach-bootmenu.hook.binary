@@ -1,0 +1,17 @@
+#!/bin/sh
+# Peach OS -- rinomina le voci del menu di avvio.
+# Eseguito da live-build con working directory = binary/
+set -e
+
+for cfg in boot/grub/*.cfg isolinux/*.cfg; do
+	[ -e "${cfg}" ] || continue
+	sed -i \
+		-e 's/Live system (amd64 fail-safe mode)/Peach OS 1.0 — Live (modalità compatibilità)/g' \
+		-e 's/Live system (amd64)/Peach OS 1.0 — Live/g' \
+		-e 's/Live system (autodetect) (fail-safe mode)/Peach OS 1.0 — Live (autodetect, compatibilità)/g' \
+		-e 's/Live system (autodetect)/Peach OS 1.0 — Live (autodetect)/g' \
+		-e 's/Live system, kernel/Peach OS 1.0 — Live, kernel/g' \
+		"${cfg}"
+done
+
+exit 0

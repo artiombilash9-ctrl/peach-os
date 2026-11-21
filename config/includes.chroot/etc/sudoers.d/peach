@@ -1,0 +1,2 @@
+# Peach OS: l'utente live puo' usare sudo senza password.
+peach ALL=(ALL:ALL) NOPASSWD: ALL

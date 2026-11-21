@@ -1,0 +1,9 @@
+# Peach OS -- firmware e microcodice (non-free-firmware)
+firmware-linux
+firmware-iwlwifi
+firmware-realtek
+firmware-atheros
+firmware-brcm80211
+
+intel-microcode
+amd64-microcode

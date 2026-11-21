@@ -1,0 +1,37 @@
+# Peach OS
+
+Peach OS 1.0 «Trixie» è una distribuzione Linux **live** basata su
+**Debian 13 (trixie)** con desktop **XFCE**.
+
+- Avvio ibrido: BIOS legacy (syslinux) e UEFI (GRUB)
+- Sessione live in RAM, utente `peach` con sudo senza password
+- Lingua italiana, tastiera italiana, fuso orario Europe/Rome
+- Tema Arc, icone Papirus, accento pesca, sfondi dedicati
+
+## Build
+
+Da un host Debian 13 come root:
+
+    sudo apt install live-build debootstrap debian-archive-keyring \
+        syslinux-common syslinux-utils isolinux grub-pc-bin \
+        grub-efi-amd64-bin mtools dosfstools squashfs-tools xorriso
+    sudo ./build.sh
+
+La ISO viene creata in `dist/PeachOS-1.0-amd64.iso`.
+
+## Struttura
+
+    auto/config              opzioni di live-build
+    config/package-lists/    pacchetti installati
+    config/hooks/            personalizzazioni eseguite nel chroot
+    config/includes.chroot/  file copiati nel filesystem della ISO
+    tools/                   script di supporto
+
+## Personalizzazione rapida
+
+- **Sfondo**: sostituisci `usr/share/backgrounds/peachos/peach-wallpaper.svg`
+- **Pacchetti**: aggiungi voci nei file `config/package-lists/*.list.chroot`
+- **Tema/icone**: `etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml`
+- **Nome/versione**: `etc/os-release` e `auto/config`
+
+Vedi `README.md` nella radice del progetto per la guida completa.

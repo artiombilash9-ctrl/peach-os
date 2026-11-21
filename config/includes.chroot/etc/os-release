@@ -1,0 +1,12 @@
+PRETTY_NAME="Peach OS 1.0 (Trixie)"
+NAME="Peach OS"
+VERSION_ID="1.0"
+VERSION="1.0 (Trixie)"
+VERSION_CODENAME=trixie
+ID=peachos
+ID_LIKE=debian
+ANSI_COLOR="1;38;5;209"
+HOME_URL="https://peachos.example.org/"
+SUPPORT_URL="https://peachos.example.org/support"
+BUG_REPORT_URL="https://peachos.example.org/issues"
+LOGO=peachos-logo

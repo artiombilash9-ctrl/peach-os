@@ -1,0 +1,27 @@
+# Peach OS -- audio, stampa, bluetooth, temi e font
+pulseaudio
+alsa-utils
+pavucontrol
+
+bluez
+blueman
+
+cups
+system-config-printer
+
+arc-theme
+papirus-icon-theme
+numix-gtk-theme
+
+fonts-dejavu
+fonts-noto
+fonts-liberation2
+fonts-noto-color-emoji
+fonts-inter
+fonts-cantarell
+
+libgl1-mesa-dri
+mesa-utils
+
+zenity
+yad

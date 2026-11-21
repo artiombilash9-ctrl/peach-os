@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Peach OS
+Name[it]=Benvenuto in Peach OS
+GenericName=Welcome
+GenericName[it]=Benvenuto
+Comment=Information, shortcuts and first steps
+Comment[it]=Informazioni, scorciatoie e primi passi
+Exec=peach-welcome
+Icon=/usr/share/pixmaps/peachos-logo.svg
+Terminal=false
+Categories=System;
+Keywords=peach;welcome;benvenuto;about;info;

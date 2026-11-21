@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" version="1.1">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#120a07"/>
+      <stop offset="0.5" stop-color="#1e0f0a"/>
+      <stop offset="1" stop-color="#3a1810"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.38" r="0.62">
+      <stop offset="0" stop-color="#ff8a5c" stop-opacity="0.38"/>
+      <stop offset="0.45" stop-color="#ff6a3c" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#ff6a3c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fruit" x1="0.25" y1="0.1" x2="0.75" y2="0.9">
+      <stop offset="0" stop-color="#ffd6b8"/>
+      <stop offset="0.4" stop-color="#ffa474"/>
+      <stop offset="1" stop-color="#ef5f2b"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b8e39a"/>
+      <stop offset="1" stop-color="#5f9f4c"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.34"/>
+      <stop offset="0.65" stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="38"/>
+    </filter>
+    <filter id="blur2" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="90"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#glow)"/>
+
+  <circle cx="1390" cy="430" r="330" fill="#ff7a45" opacity="0.22" filter="url(#blur2)"/>
+
+  <g fill="none" stroke="#ffb38a">
+    <circle cx="1390" cy="430" r="320" stroke-opacity="0.16" stroke-width="1.5"/>
+    <circle cx="1390" cy="430" r="450" stroke-opacity="0.12" stroke-width="1.5"/>
+    <circle cx="1390" cy="430" r="590" stroke-opacity="0.09" stroke-width="1.5" stroke-dasharray="2 10"/>
+    <circle cx="1390" cy="430" r="740" stroke-opacity="0.06" stroke-width="1.5"/>
+  </g>
+
+  <g transform="translate(1390 430)">
+    <ellipse cx="8" cy="26" rx="250" ry="236" fill="#ff5a1f" opacity="0.45" filter="url(#blur)"/>
+    <path d="M 0 -186 C 52 -222 120 -224 168 -190 C 238 -140 244 -40 214 50 C 188 128 108 206 0 232 C -108 206 -188 128 -214 50 C -244 -40 -238 -140 -168 -190 C -120 -224 -52 -222 0 -186 Z" fill="url(#fruit)"/>
+    <path d="M 0 -184 C -12 -150 -10 -118 0 -94" fill="none" stroke="#b8431a" stroke-opacity="0.4" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="-84" cy="-60" rx="106" ry="74" fill="url(#sheen)" transform="rotate(-24 -84 -60)"/>
+    <path d="M 0 -186 C 4 -206 10 -218 20 -228" fill="none" stroke="#7a4a2a" stroke-width="11" stroke-linecap="round"/>
+    <path d="M 18 -196 C 46 -258 120 -292 188 -280 C 196 -222 150 -172 74 -176 C 52 -178 32 -186 18 -196 Z" fill="url(#leaf)"/>
+    <path d="M 18 -196 C 78 -222 132 -244 186 -278" fill="none" stroke="#3f7a33" stroke-opacity="0.55" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <g font-family="DejaVu Sans, Noto Sans, sans-serif">
+    <text x="150" y="812" font-size="112" font-weight="bold" fill="#fff2ea" letter-spacing="-1">Peach <tspan fill="#ffb38a" font-weight="300" letter-spacing="4">OS</tspan></text>
+    <rect x="152" y="852" width="120" height="3" fill="#ff7a45"/>
+    <text x="152" y="900" font-size="27" fill="#f5d9c9" fill-opacity="0.66" letter-spacing="2">Debian 13 · XFCE · 1.0 «Trixie»</text>
+    <text x="152" y="1012" font-size="18" fill="#f5d9c9" fill-opacity="0.30" letter-spacing="3">PEACHOS.EXAMPLE.ORG</text>
+  </g>
+</svg>

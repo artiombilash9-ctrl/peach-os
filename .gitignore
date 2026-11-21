@@ -1,0 +1,28 @@
+# Artefatti di build
+/binary/
+/chroot/
+/cache/
+/source/
+/*.iso
+/*.hybrid.iso
+/*.list
+/*.packages
+/*.contents
+/*.files
+/*.log
+/*.sha256
+/*.zsync
+/config/binary
+/config/chroot
+/config/bootstrap
+/config/common
+/config/source
+/config/*.conf
+
+# Output
+/dist/
+/screenshots/
+
+# Sistema
+.DS_Store
+Thumbs.db

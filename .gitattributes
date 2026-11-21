@@ -1,0 +1,20 @@
+# Normalizza i line ending: gli script devono restare LF anche su Windows.
+* text=auto eol=lf
+
+*.sh            text eol=lf
+*.hook.chroot   text eol=lf
+*.hook.binary   text eol=lf
+*.list.chroot   text eol=lf
+*.desktop       text eol=lf
+*.conf          text eol=lf
+*.xml           text eol=lf
+*.svg           text eol=lf
+*.py            text eol=lf
+
+# PowerShell: CRLF per gli editor Windows
+*.ps1           text eol=crlf
+
+# Binari
+*.png           binary
+*.iso           binary
+*.deb           binary

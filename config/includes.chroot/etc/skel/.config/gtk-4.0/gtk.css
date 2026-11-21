@@ -1,0 +1,17 @@
+/* Peach OS -- accento pesca per GTK 4 */
+
+@define-color accent_color #d9541f;
+@define-color accent_bg_color #ff7a45;
+@define-color accent_fg_color #ffffff;
+
+@define-color window_bg_color #fdf6f1;
+@define-color window_fg_color #2b1a13;
+
+@define-color headerbar_bg_color #f6e7dd;
+@define-color headerbar_fg_color #2b1a13;
+
+@define-color card_bg_color #ffffff;
+@define-color card_fg_color #2b1a13;
+
+@define-color popover_bg_color #fffaf7;
+@define-color popover_fg_color #2b1a13;

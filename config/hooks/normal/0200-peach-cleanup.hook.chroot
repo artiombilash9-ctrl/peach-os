@@ -1,0 +1,16 @@
+#!/bin/sh
+# Peach OS -- pulizia finale dell'immagine.
+set -e
+
+echo "P: Peach OS -- pulizia"
+
+apt-get -y autoremove --purge > /dev/null 2>&1 || true
+apt-get clean
+
+rm -rf /var/lib/apt/lists/*
+rm -rf /var/cache/apt/archives/*.deb
+rm -rf /tmp/* /var/tmp/*
+find /var/log -type f -exec truncate -s 0 {} \; 2>/dev/null || true
+
+echo "P: Peach OS -- pulizia completata"
+exit 0

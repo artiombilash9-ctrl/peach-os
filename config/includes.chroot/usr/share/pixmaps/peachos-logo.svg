@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="-260 -320 520 580" version="1.1">
+  <defs>
+    <linearGradient id="fruit" x1="0.25" y1="0.1" x2="0.75" y2="0.9">
+      <stop offset="0" stop-color="#ffd6b8"/>
+      <stop offset="0.4" stop-color="#ffa474"/>
+      <stop offset="1" stop-color="#ef5f2b"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b8e39a"/>
+      <stop offset="1" stop-color="#5f9f4c"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M 0 -186 C 52 -222 120 -224 168 -190 C 238 -140 244 -40 214 50 C 188 128 108 206 0 232 C -108 206 -188 128 -214 50 C -244 -40 -238 -140 -168 -190 C -120 -224 -52 -222 0 -186 Z" fill="url(#fruit)"/>
+  <path d="M 0 -184 C -12 -150 -10 -118 0 -94" fill="none" stroke="#b8431a" stroke-opacity="0.4" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="-84" cy="-60" rx="88" ry="58" fill="#ffffff" opacity="0.2" transform="rotate(-24 -84 -60)"/>
+  <path d="M 0 -186 C 4 -206 10 -218 20 -228" fill="none" stroke="#7a4a2a" stroke-width="11" stroke-linecap="round"/>
+  <path d="M 18 -196 C 46 -258 120 -292 188 -280 C 196 -222 150 -172 74 -176 C 52 -178 32 -186 18 -196 Z" fill="url(#leaf)"/>
+  <path d="M 18 -196 C 78 -222 132 -244 186 -278" fill="none" stroke="#3f7a33" stroke-opacity="0.55" stroke-width="5" stroke-linecap="round"/>
+</svg>

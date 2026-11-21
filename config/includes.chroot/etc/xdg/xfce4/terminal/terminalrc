@@ -1,0 +1,25 @@
+[Configuration]
+FontName=Noto Sans Mono 10
+FontUseSystem=TRUE
+MiscAlwaysShowTabs=FALSE
+MiscBell=FALSE
+MiscBellUrgent=TRUE
+MiscBordersDefault=TRUE
+MiscCursorBlinks=TRUE
+MiscCursorShape=TERMINAL_CURSOR_SHAPE_IBEAM
+MiscDefaultGeometry=110x32
+MiscMenubarDefault=TRUE
+MiscMouseAutohide=FALSE
+MiscToolbarDefault=FALSE
+MiscConfirmClose=TRUE
+MiscCycleTabs=TRUE
+MiscTabCloseButtons=TRUE
+MiscTabCloseMiddleClick=TRUE
+MiscTabPosition=GTK_POS_TOP
+MiscHighlightUrls=TRUE
+MiscScrollAlternateScreen=TRUE
+ScrollingBar=TERMINAL_SCROLLBAR_NONE
+ColorForeground=#f7e8de
+ColorBackground=#1b0f0b
+ColorCursor=#ff8a5c
+ColorPalette=#2a1a14;#ff7a45;#9ccc7a;#ffd28a;#7fb8d9;#d99ad9;#7fd9c9;#f7e8de;#6b4a3a;#ff9a6c;#b5e08f;#ffe0a8;#a3d4f0;#f0b3f0;#a3f0e0;#fff5ee

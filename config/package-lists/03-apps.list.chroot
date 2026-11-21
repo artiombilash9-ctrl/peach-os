@@ -1,0 +1,22 @@
+# Peach OS -- applicazioni preinstallate
+firefox-esr
+thunderbird
+
+libreoffice-writer
+libreoffice-calc
+libreoffice-impress
+
+mousepad
+ristretto
+parole
+galculator
+file-roller
+evince
+
+gimp
+vlc
+transmission-gtk
+
+gparted
+synaptic
+gnome-disk-utility

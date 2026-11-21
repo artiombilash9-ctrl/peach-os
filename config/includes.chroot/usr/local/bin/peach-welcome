@@ -1,0 +1,33 @@
+#!/bin/sh
+# Peach OS -- finestra di benvenuto
+
+INFO="<b>Benvenuto in Peach OS 1.0 «Trixie»</b>
+
+Una distribuzione live basata su Debian 13 con desktop XFCE.
+
+<b>Scorciatoie</b>
+  • Menu applicazioni: icona in basso a sinistra
+  • Terminale: Ctrl+Alt+T
+  • File manager: Thunar
+  • Browser: Firefox ESR
+
+<b>Primi passi</b>
+  • Connettiti alla rete dall'icona di rete nel pannello
+  • Installa o rimuovi pacchetti con Synaptic
+  • Peach OS gira interamente in RAM: nessuna modifica al disco
+
+<b>Utente live:</b> peach   ·   <b>Password:</b> live   ·   <b>sudo:</b> senza password
+
+<i>Progetto dimostrativo. Debian è un marchio della Software in the Public Interest, Inc.</i>"
+
+if command -v zenity >/dev/null 2>&1; then
+	zenity --info \
+		--title="Peach OS" \
+		--window-icon=/usr/share/pixmaps/peachos-logo.svg \
+		--width=640 \
+		--text="${INFO}" 2>/dev/null || true
+elif command -v xmessage >/dev/null 2>&1; then
+	printf '%s\n' "${INFO}" | sed 's/<[^>]*>//g' | xmessage -center -file -
+fi
+
+exit 0

@@ -1,0 +1,13 @@
+/* Peach OS -- accento pesca per GTK 3 */
+
+@define-color theme_selected_bg_color #ff7a45;
+@define-color theme_selected_fg_color #ffffff;
+@define-color theme_selected_bg_color_insensitive #ffc2a8;
+@define-color theme_selected_fg_color_insensitive #7a5245;
+
+@define-color accent_color #d9541f;
+@define-color accent_bg_color #ff7a45;
+@define-color accent_fg_color #ffffff;
+
+@define-color link_color #d9541f;
+@define-color link_visited_color #a8451a;

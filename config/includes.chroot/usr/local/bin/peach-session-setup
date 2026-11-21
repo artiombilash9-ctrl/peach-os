@@ -1,0 +1,22 @@
+#!/bin/sh
+# Peach OS -- impostazioni applicate a ogni avvio della sessione live.
+set -u
+
+WALLPAPER="/usr/share/backgrounds/peachos/peach-wallpaper.svg"
+
+# Applica lo sfondo a ogni monitor/workspace rilevato.
+if command -v xfconf-query >/dev/null 2>&1; then
+	xfconf-query -c xfce4-desktop -l 2>/dev/null | grep '/last-image$' | while IFS= read -r prop; do
+		xfconf-query -c xfce4-desktop -p "${prop}" -s "${WALLPAPER}" 2>/dev/null || true
+	done
+fi
+
+# Mostra il benvenuto una volta per sessione.
+MARKER="${XDG_CONFIG_HOME:-${HOME}/.config}/peach-welcome-shown"
+if [ ! -e "${MARKER}" ]; then
+	mkdir -p "$(dirname "${MARKER}")"
+	: > "${MARKER}"
+	( sleep 4; peach-welcome ) &
+fi
+
+exit 0
