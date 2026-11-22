@@ -133,6 +133,11 @@ def main():
     if not args.no_kvm and os.path.exists("/dev/kvm"):
         command.insert(1, "-enable-kvm")
 
+    # OVMF con Secure Boot richiede SMM per le variabili autenticate.
+    if args.secure_boot:
+        command.insert(1, "-machine")
+        command.insert(2, "smm=on")
+
     if args.uefi or args.secure_boot:
         suffix = ".ms" if args.secure_boot else ""
         code = os.path.join(args.ovmf_dir, "OVMF_CODE_4M%s.fd" % suffix)

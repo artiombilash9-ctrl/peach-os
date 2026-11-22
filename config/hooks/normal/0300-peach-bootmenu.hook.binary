@@ -27,8 +27,14 @@ for cfg in boot/grub/grub.cfg isolinux/live.cfg; do
 	if ! grep -q '^set timeout=' "${cfg}"; then
 		{
 			if [ "${cfg#boot/grub/}" != "${cfg}" ]; then
-				echo "insmod gettext"
-				echo "set lang=it_IT"
+				# Con Secure Boot GRUB e' in lockdown e puo' rifiutare il
+				# caricamento di moduli non firmati: in quel caso proseguiamo
+				# senza traduzione invece di bloccare l'avvio.
+				echo "if insmod gettext; then"
+				echo "  set lang=it_IT"
+				echo "else"
+				echo "  clear"
+				echo "fi"
 			fi
 			echo "loadfont /boot/grub/fonts/peach16.pf2"
 			echo "set timeout=10"
@@ -38,6 +44,14 @@ for cfg in boot/grub/grub.cfg isolinux/live.cfg; do
 		mv "${cfg}.new" "${cfg}"
 	fi
 done
+
+# Il GRUB EFI firmato da Debian non include il modulo png: con Secure Boot
+# (lockdown) `insmod png` verrebbe rifiutato e bloccherebbe il menu. GRUB
+# esporta la variabile "lockdown" quando e' in quella modalita': in quel
+# caso saltiamo il caricamento; senza splash il menu resta leggibile.
+if [ -e boot/grub/config.cfg ]; then
+	sed -i 's|^insmod png$|if [ -n "${lockdown}" ]; then set peach_png=skip; else insmod png; fi|' boot/grub/config.cfg
+fi
 
 # Persistenza: aggiungiamo una voce che riusa kernel e initrd della prima
 # voce Live con il parametro "persistence" di live-boot.
