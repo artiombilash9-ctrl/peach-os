@@ -14,4 +14,17 @@ for cfg in boot/grub/*.cfg isolinux/*.cfg; do
 		"${cfg}"
 done
 
+# Avvio automatico: il menu non deve restare in attesa di un tasto.
+for cfg in boot/grub/grub.cfg isolinux/live.cfg; do
+	[ -e "${cfg}" ] || continue
+	if ! grep -q '^set timeout=' "${cfg}"; then
+		{
+			echo "set timeout=10"
+			echo "set timeout_style=menu"
+			cat "${cfg}"
+		} > "${cfg}.new"
+		mv "${cfg}.new" "${cfg}"
+	fi
+done
+
 exit 0

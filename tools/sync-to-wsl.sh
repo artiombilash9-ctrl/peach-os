@@ -4,6 +4,10 @@
 #
 #   bash tools/sync-to-wsl.sh "C:\percorso\peach-os" [/srv/peach-build/build/peach-os]
 #
+# Copia solo i file sorgente: le directory generate da live-build
+# (chroot/, binary/, cache/, .build/) restano intatte, cosi' la build
+# successiva e' incrementale e non riparte da debootstrap.
+#
 set -euo pipefail
 
 if [ "$#" -lt 1 ]; then
@@ -11,7 +15,10 @@ if [ "$#" -lt 1 ]; then
 	exit 1
 fi
 
-SRC="$(wslpath -a "$1")"
+case "$1" in
+	/*) SRC="$1" ;;
+	*) SRC="$(wslpath -a "$1")" ;;
+esac
 TARGET="${2:-/srv/peach-build/build/peach-os}"
 
 if [ ! -d "${SRC}" ]; then
@@ -19,13 +26,26 @@ if [ ! -d "${SRC}" ]; then
 	exit 1
 fi
 
-mkdir -p "$(dirname "${TARGET}")"
-rm -rf "${TARGET}"
-cp -a "${SRC}" "${TARGET}"
+mkdir -p "${TARGET}"
 
-# Il filesystem Windows non conserva i permessi: li normalizziamo.
-find "${TARGET}" -type d -exec chmod 755 {} +
-find "${TARGET}" -type f -exec chmod 644 {} +
+# Rimuove solo cio' che proviene dal repository, non gli artefatti di build.
+rm -rf "${TARGET}/auto" "${TARGET}/config" "${TARGET}/tools" \
+	"${TARGET}/dist" "${TARGET}/screenshots" "${TARGET}/.git"
+rm -f "${TARGET}/build.sh" "${TARGET}/build.ps1" "${TARGET}/run-qemu.sh" \
+	"${TARGET}/README.md" "${TARGET}/.gitignore" "${TARGET}/.gitattributes"
+
+cp -a "${SRC}/." "${TARGET}/"
+rm -rf "${TARGET}/.git"
+
+# Il filesystem Windows non conserva i permessi: li normalizziamo,
+# ma solo sui file sorgente (mai su chroot/ e binary/, che sono artefatti).
+for dir in auto config tools; do
+	[ -d "${TARGET}/${dir}" ] || continue
+	find "${TARGET}/${dir}" -type d -exec chmod 755 {} +
+	find "${TARGET}/${dir}" -type f -exec chmod 644 {} +
+done
+chmod 644 "${TARGET}"/*.md "${TARGET}"/*.sh "${TARGET}"/*.ps1 2>/dev/null || true
+chmod 644 "${TARGET}/.gitignore" "${TARGET}/.gitattributes" 2>/dev/null || true
 chmod 755 "${TARGET}/auto/config" \
 	"${TARGET}/build.sh" "${TARGET}"/tools/*.sh \
 	"${TARGET}"/config/hooks/normal/*.hook.* \

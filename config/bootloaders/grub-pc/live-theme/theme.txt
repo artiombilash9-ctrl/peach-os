@@ -1,9 +1,9 @@
 desktop-image: "../splash.png"
 title-color: "#fff2ea"
-title-font: "Unifont Regular 16"
+title-font: "GNU Unifont Regular 16"
 title-text: ""
-message-font: "Unifont Regular 16"
-terminal-font: "Unifont Regular 16"
+message-font: "GNU Unifont Regular 16"
+terminal-font: "GNU Unifont Regular 16"
 
 # Menu di avvio
 + boot_menu {
@@ -12,9 +12,9 @@ terminal-font: "Unifont Regular 16"
 	top = 50%
 	height = 44%-80
 	item_color = "#c9a898"
-	item_font = "Unifont Regular 16"
+	item_font = "GNU Unifont Regular 16"
 	selected_item_color = "#ffb38a"
-	selected_item_font = "Unifont Regular 16"
+	selected_item_font = "GNU Unifont Regular 16"
 	item_height = 24
 	item_padding = 2
 	item_spacing = 6
@@ -29,7 +29,7 @@ terminal-font: "Unifont Regular 16"
 	top = 100%-70
 	height = 14
 	width = 70%
-	font = "Unifont Regular 16"
+	font = "GNU Unifont Regular 16"
 	text_color = "#1b0f0b"
 	fg_color = "#ff7a45"
 	bg_color = "#2a1a14"
