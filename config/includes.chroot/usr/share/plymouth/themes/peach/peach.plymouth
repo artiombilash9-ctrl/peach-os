@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Peach OS
+Description=Schermata di avvio di Peach OS
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/peach
+ScriptFile=/usr/share/plymouth/themes/peach/peach.script

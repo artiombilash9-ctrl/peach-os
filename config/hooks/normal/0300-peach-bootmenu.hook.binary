@@ -20,10 +20,16 @@ done
 # Avvio automatico: il menu non deve restare in attesa di un tasto.
 # Il font di sistema del core GRUB contiene solo ASCII: carichiamo il nostro
 # (nome univoco "Peach Sans Mono") per avere accenti e punteggiatura tipografica.
+# Il modulo gettext + it.mo traducono i messaggi interni di GRUB (per esempio
+# la riga del conto alla rovescia); le voci del menu sono gia' in italiano.
 for cfg in boot/grub/grub.cfg isolinux/live.cfg; do
 	[ -e "${cfg}" ] || continue
 	if ! grep -q '^set timeout=' "${cfg}"; then
 		{
+			if [ "${cfg#boot/grub/}" != "${cfg}" ]; then
+				echo "insmod gettext"
+				echo "set lang=it_IT"
+			fi
 			echo "loadfont /boot/grub/fonts/peach16.pf2"
 			echo "set timeout=10"
 			echo "set timeout_style=menu"
@@ -32,5 +38,17 @@ for cfg in boot/grub/grub.cfg isolinux/live.cfg; do
 		mv "${cfg}.new" "${cfg}"
 	fi
 done
+
+# Persistenza: aggiungiamo una voce che riusa kernel e initrd della prima
+# voce Live con il parametro "persistence" di live-boot.
+CFG=boot/grub/grub.cfg
+if [ -e "${CFG}" ] && ! grep -q 'persistenza' "${CFG}"; then
+	LINUX=$(awk '/^[[:space:]]*linux[[:space:]]/ {print; exit}' "${CFG}")
+	INITRD=$(awk '/^[[:space:]]*initrd[[:space:]]/ {print; exit}' "${CFG}")
+	if [ -n "${LINUX}" ] && [ -n "${INITRD}" ]; then
+		printf '\nmenuentry "Peach OS 1.0 — Live con persistenza" --hotkey=p {\n%s persistence\n%s\n}\n' \
+			"${LINUX}" "${INITRD}" >> "${CFG}"
+	fi
+fi
 
 exit 0

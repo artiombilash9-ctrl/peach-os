@@ -1,0 +1,19 @@
+#!/bin/bash
+# Peach OS -- aggiornamenti del sistema.
+# I pacchetti arrivano dai repository Debian, non da un archivio dedicato.
+set -u
+
+echo "Peach OS -- aggiornamenti dai repository Debian"
+echo
+
+if ! sudo apt update; then
+	echo
+	echo "Impossibile aggiornare l'elenco dei pacchetti."
+	read -rp "Premi Invio per chiudere..." || true
+	exit 1
+fi
+
+sudo apt full-upgrade
+
+echo
+read -rp "Operazione completata. Premi Invio per chiudere..." || true

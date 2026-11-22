@@ -1,0 +1,24 @@
+# Peach OS -- tema GTK 2 completo (applicazioni legacy)
+style "peach-widgets" {
+    base[NORMAL]      = "#fffaf6"
+    base[SELECTED]    = "#ff7a45"
+    base[ACTIVE]      = "#ffd9c4"
+    text[NORMAL]      = "#2b1d16"
+    text[SELECTED]    = "#ffffff"
+    fg[SELECTED]      = "#ffffff"
+    bg[SELECTED]      = "#ff7a45"
+    bg[PRELIGHT]      = "#ffd9c4"
+    fg[PRELIGHT]      = "#2b1d16"
+    selected_fg_color = "#ffffff"
+    tooltip_bg_color  = "#2b1d16"
+    tooltip_fg_color  = "#fdf2e9"
+}
+
+style "peach-entry" {
+    base[NORMAL]   = "#ffffff"
+    base[SELECTED] = "#ff7a45"
+    fg[SELECTED]   = "#ffffff"
+}
+
+class "GtkWidget"    style "peach-widgets"
+class "GtkEntry"     style "peach-entry"

@@ -4,37 +4,53 @@ set -u
 
 WALLPAPER="/usr/share/backgrounds/peachos/peach-wallpaper.svg"
 
-# Imposta lo sfondo su ogni monitor/workspace che xfdesktop ha registrato.
+# Imposta una proprieta' xfconf, creandola se non esiste ancora.
+set_prop() {
+	# $1 = percorso, $2 = tipo, $3 = valore
+	xfconf-query -c xfce4-desktop -p "$1" -s "$3" 2>/dev/null && return 0
+	xfconf-query -c xfce4-desktop -n -t "$2" -p "$1" -s "$3" 2>/dev/null || true
+}
+
 apply_wallpaper() {
-	xfconf-query -c xfce4-desktop -l 2>/dev/null | grep '/last-image$' |
+	# xfdesktop 4.16+ salva lo sfondo per monitor, con nome
+	# /backdrop/screen0/monitor<connettore>/workspace0/...
+	# Il connettore si ricava da XRandR (es. Virtual-1, eDP-1, HDMI-1).
+	if command -v xrandr >/dev/null 2>&1; then
+		xrandr --query 2>/dev/null | awk '/ connected/ {print $1}' |
+		while IFS= read -r monitor; do
+			[ -n "${monitor}" ] || continue
+			set_prop "/backdrop/screen0/monitor${monitor}/workspace0/last-image" \
+				string "${WALLPAPER}"
+			set_prop "/backdrop/screen0/monitor${monitor}/workspace0/image-style" \
+				int 5
+		done
+	fi
+
+	# Proprieta' gia' create da xfdesktop. Le voci "monitor0" sono il
+	# formato legacy e vengono ignorate: xfdesktop 4.20 non le usa piu'.
+	xfconf-query -c xfce4-desktop -l 2>/dev/null |
+		grep '/last-image$' | grep -v '/monitor0/' |
 		while IFS= read -r prop; do
-			xfconf-query -c xfce4-desktop -p "${prop}" -s "${WALLPAPER}" 2>/dev/null || true
-			xfconf-query -c xfce4-desktop \
-				-p "${prop%/last-image}/image-style" -s 5 2>/dev/null || true
+			set_prop "${prop}" string "${WALLPAPER}"
+			set_prop "${prop%/last-image}/image-style" int 5
 		done
 }
 
-# xfdesktop crea le proprieta' del backdrop solo dopo il proprio avvio:
-# si riprova finche' non compaiono (max ~15 secondi).
-if command -v xfconf-query >/dev/null 2>&1; then
-	i=0
-	while [ "${i}" -lt 30 ]; do
-		if xfconf-query -c xfce4-desktop -l 2>/dev/null | grep -q '/last-image$'; then
-			apply_wallpaper
-			break
-		fi
-		i=$((i + 1))
-		sleep 0.5
-	done
-
-	# Rete di sicurezza: se nessun monitor e' ancora registrato, creiamo
-	# la proprieta' per il monitor 0 (nome usato dalle versioni precedenti).
-	if [ "${i}" -ge 30 ]; then
-		xfconf-query -c xfce4-desktop -n -t string \
-			-p /backdrop/screen0/monitor0/workspace0/last-image \
-			-s "${WALLPAPER}" 2>/dev/null || true
+# Riprova finche' esiste almeno un monitor reale (max ~12 secondi):
+# all'avvio xfdesktop puo' non aver ancora creato le sue proprieta'.
+i=0
+while [ "${i}" -lt 24 ]; do
+	apply_wallpaper
+	if xfconf-query -c xfce4-desktop -l 2>/dev/null |
+		grep '/last-image$' | grep -qv '/monitor0/'; then
+		break
 	fi
-fi
+	i=$((i + 1))
+	sleep 0.5
+done
+
+# Forza xfdesktop a ridisegnare lo sfondo con i nuovi valori.
+command -v xfdesktop >/dev/null 2>&1 && xfdesktop --reload >/dev/null 2>&1 || true
 
 # Mostra il benvenuto una volta per sessione.
 MARKER="${XDG_CONFIG_HOME:-${HOME}/.config}/peach-welcome-shown"

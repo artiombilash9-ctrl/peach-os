@@ -1,0 +1,38 @@
+---
+componentName: peach
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 860px,600px
+windowPlacement: center
+
+strings:
+    productName:         Peach OS
+    shortProductName:    Peach OS
+    version:             1.0
+    shortVersion:        1.0
+    versionedName:       Peach OS 1.0 "Trixie"
+    shortVersionedName:  Peach OS 1.0
+    bootloaderEntryName: Peach OS
+    productUrl:          https://github.com/artiombilash9-ctrl/peach-os
+    supportUrl:          https://github.com/artiombilash9-ctrl/peach-os/issues
+    knownIssuesUrl:      https://github.com/artiombilash9-ctrl/peach-os/issues
+    releaseNotesUrl:     https://github.com/artiombilash9-ctrl/peach-os/blob/main/README.md
+    donateUrl:           https://github.com/artiombilash9-ctrl/peach-os
+
+sidebar: widget
+navigation: widget
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "logo.png"
+    productWelcome:      "welcome.png"
+
+slideshow:               "show.qml"
+slideshowAPI:            2
+
+style:
+    SidebarBackground:       "#2b1d16"
+    SidebarText:             "#fdf2e9"
+    SidebarTextCurrent:      "#ffffff"
+    SidebarBackgroundCurrent: "#8a4b2a"

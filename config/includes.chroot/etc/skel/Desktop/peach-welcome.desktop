@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=Peach OS
-Name[it]=Benvenuto in Peach OS
+Name[it]=Benvenuto
 Comment=Information, shortcuts and first steps
 Comment[it]=Informazioni, scorciatoie e primi passi
 Exec=peach-welcome

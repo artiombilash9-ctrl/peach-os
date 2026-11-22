@@ -1,17 +1,48 @@
-/* Peach OS -- accento pesca per GTK 4 */
-
+/* Peach OS -- tema GTK 4 completo: accento pesca */
 @define-color accent_color #d9541f;
 @define-color accent_bg_color #ff7a45;
 @define-color accent_fg_color #ffffff;
 
-@define-color window_bg_color #fdf6f1;
-@define-color window_fg_color #2b1a13;
+@define-color peach #ff7a45;
+@define-color peach_dark #d9541f;
+@define-color peach_soft #fff1e8;
 
-@define-color headerbar_bg_color #f6e7dd;
-@define-color headerbar_fg_color #2b1a13;
+@define-color link_color #d9541f;
+@define-color link_visited_color #a8451a;
 
-@define-color card_bg_color #ffffff;
-@define-color card_fg_color #2b1a13;
+/* Pulsanti */
+button {
+    border-radius: 5px;
+    padding: 7px 12px;
+}
+button:hover { background-color: @peach_soft; }
+button:checked,
+button:active { background-color: @peach; color: #ffffff; }
+button.suggested-action {
+    background-color: @peach_dark;
+    color: #ffffff;
+}
+button.suggested-action:hover { background-color: @peach; }
 
-@define-color popover_bg_color #fffaf7;
-@define-color popover_fg_color #2b1a13;
+/* Barre del titolo */
+headerbar, toolbar {
+    background-color: #fdf6f0;
+    border-bottom-color: #d9bdae;
+}
+
+/* Selezioni e campi di testo */
+*:selected { background-color: @peach; color: #ffffff; }
+entry:focus { border-color: @peach_dark; }
+
+/* Avanzamento e scorrimento */
+progressbar progress, scale fill { background-color: @peach; }
+scrollbar slider { background-color: #e3b8a1; border-radius: 4px; }
+scrollbar slider:hover { background-color: @peach; }
+
+/* Caselle e suggerimenti */
+check:checked, radio:checked { background-color: @peach; }
+tooltip {
+    background-color: #2b1d16;
+    color: #fdf2e9;
+    border-radius: 4px;
+}

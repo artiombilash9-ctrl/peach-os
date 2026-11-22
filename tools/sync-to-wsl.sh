@@ -51,4 +51,12 @@ chmod 755 "${TARGET}/auto/config" \
 	"${TARGET}"/config/hooks/normal/*.hook.* \
 	"${TARGET}"/config/includes.chroot/usr/local/bin/* 2>/dev/null || true
 
+# live-build salva la configurazione risolta (distribuzione, bootloader,
+# opzioni) in config/common, config/bootstrap, ecc. e la rigenera solo se
+# manca lo stagefile .build/config. Qui sopra config/ viene sostituita con i
+# soli file del repository: senza rimuovere lo stagefile la build userebbe i
+# valori predefiniti (distribution "testing") e ricostruirebbe il chroot con
+# la distribuzione sbagliata.
+rm -f "${TARGET}/.build/config"
+
 echo "==> Progetto sincronizzato in ${TARGET}"

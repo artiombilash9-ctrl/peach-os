@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Aggiorna Peach OS
+Name[it]=Aggiorna Peach OS
+Comment=Installa gli aggiornamenti dai repository Debian
+Comment[it]=Installa gli aggiornamenti dai repository Debian
+Exec=peach-update
+Icon=system-software-update
+Terminal=true
+Categories=System;PackageManager;
+Keywords=update;upgrade;aggiornamenti;
+StartupNotify=false

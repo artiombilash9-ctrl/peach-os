@@ -1,0 +1,35 @@
+# Peach OS -- tema Plymouth in stile "script"
+# Sfondo scuro, logo centrato e indicatore di avvio.
+
+screen_width  = Window.GetWidth();
+screen_height = Window.GetHeight();
+
+Window.SetBackgroundTopColor(0.18, 0.12, 0.09);
+Window.SetBackgroundBottomColor(0.06, 0.04, 0.03);
+
+logo = Image("logo.png");
+logo_sprite = Sprite(logo);
+logo_sprite.SetX(Math.Int(screen_width / 2 - logo.GetWidth() / 2));
+logo_sprite.SetY(Math.Int(screen_height / 2 - logo.GetHeight() / 2 - 20));
+
+title = Image.Text("Peach OS", 1.0, 0.91, 0.83);
+title_sprite = Sprite(title);
+title_sprite.SetX(Math.Int(screen_width / 2 - title.GetWidth() / 2));
+title_sprite.SetY(Math.Int(screen_height / 2 + logo.GetHeight() / 2 - 12));
+
+status = Image.Text("", 0.86, 0.71, 0.60);
+status_sprite = Sprite(status);
+status_sprite.SetX(Math.Int(screen_width / 2 - status.GetWidth() / 2));
+status_sprite.SetY(Math.Int(screen_height / 2 + logo.GetHeight() / 2 + 20));
+
+fun boot_progress(duration, progress) {
+    if (progress < 0)
+        status = Image.Text("", 0.86, 0.71, 0.60);
+    else
+        status = Image.Text("Avvio in corso... " + Math.Int(progress * 100) + "%",
+                            0.86, 0.71, 0.60);
+    status_sprite.SetImage(status);
+    status_sprite.SetX(Math.Int(screen_width / 2 - status.GetWidth() / 2));
+}
+
+Plymouth.SetBootProgressFunction(boot_progress);

@@ -1,0 +1,14 @@
+# Peach OS -- tema GTK 2 per le applicazioni eseguite come root
+style "peach-widgets" {
+    base[NORMAL]      = "#fffaf6"
+    base[SELECTED]    = "#ff7a45"
+    text[NORMAL]      = "#2b1d16"
+    text[SELECTED]    = "#ffffff"
+    fg[SELECTED]      = "#ffffff"
+    bg[SELECTED]      = "#ff7a45"
+    bg[PRELIGHT]      = "#ffd9c4"
+    tooltip_bg_color  = "#2b1d16"
+    tooltip_fg_color  = "#fdf2e9"
+}
+
+class "GtkWidget" style "peach-widgets"

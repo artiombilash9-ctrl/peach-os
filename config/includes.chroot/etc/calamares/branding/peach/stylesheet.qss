@@ -1,0 +1,16 @@
+/* Peach OS -- foglio di stile dell'installatore */
+QPushButton {
+    background-color: #d9541f;
+    color: #ffffff;
+    border: 1px solid #a8451a;
+    border-radius: 4px;
+    padding: 6px 14px;
+}
+QPushButton:hover { background-color: #ff7a45; }
+QPushButton:disabled {
+    background-color: #e8cfc2;
+    color: #7a5245;
+    border-color: #d9bdae;
+}
+QProgressBar::chunk { background-color: #ff7a45; }
+QLabel#welcome { color: #2b1d16; }

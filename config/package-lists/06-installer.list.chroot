@@ -1,0 +1,10 @@
+# Peach OS -- installatore grafico, aggiornamenti e schermata di avvio
+calamares
+calamares-settings-debian
+squashfs-tools
+
+# Plymouth (tema Peach OS incluso in includes.chroot)
+plymouth
+
+# Supporto ai doppi avvii per il bootloader installato da Calamares
+os-prober

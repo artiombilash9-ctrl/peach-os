@@ -32,6 +32,16 @@ chmod +x config/includes.chroot/usr/local/bin/* 2>/dev/null || true
 
 mkdir -p dist
 
+# live-build rigenera la configurazione (config/common, config/bootstrap, ...)
+# solo se manca lo stagefile .build/config. Se i file generati sono stati
+# cancellati ma lo stagefile e' rimasto (per esempio dopo un sync dei soli
+# sorgenti), la build userebbe i default -- distribution "testing" -- e
+# ricostruirebbe il chroot con la distribuzione sbagliata. Forziamo la
+# rigenerazione quando i file generati non ci sono.
+if [ ! -e config/common ]; then
+	rm -f .build/config
+fi
+
 # live-build non si accorge delle modifiche alla configurazione: senza pulire
 # lo stadio interessato salta i passaggi e non produce alcuna ISO.
 #   ./build.sh          pulisce solo lo stadio binary (veloce, ~4 min)

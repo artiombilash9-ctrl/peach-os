@@ -1,4 +1,8 @@
-/* Peach OS -- accento pesca per GTK 3 */
+/* Peach OS -- tema GTK 3 completo: accento pesca sul tema Arc */
+
+@define-color peach #ff7a45;
+@define-color peach_dark #d9541f;
+@define-color peach_soft #fff1e8;
 
 @define-color theme_selected_bg_color #ff7a45;
 @define-color theme_selected_fg_color #ffffff;
@@ -11,3 +15,69 @@
 
 @define-color link_color #d9541f;
 @define-color link_visited_color #a8451a;
+
+/* Pulsanti */
+button {
+    border-radius: 4px;
+    transition: background-color 120ms ease;
+}
+button:checked,
+button:active {
+    background-color: @peach;
+    color: @peach_dark;
+}
+button.suggested-action {
+    background-color: @peach_dark;
+    color: #ffffff;
+    border-color: #a8451a;
+}
+button.suggested-action:hover { background-color: @peach; }
+
+/* Barra del titolo e barre degli strumenti */
+headerbar, .header-bar, toolbar {
+    background-image: linear-gradient(to bottom, #fffaf6, #f0dfd4);
+    border-bottom-color: #d9bdae;
+}
+headerbar button { background-color: @peach_soft; }
+headerbar button:hover { background-color: @peach; color: #ffffff; }
+
+/* Voci di menu e selezioni */
+menuitem:hover, .menu menuitem:hover,
+.menu menuitem:selected {
+    background-color: @peach;
+    color: #ffffff;
+}
+*:selected { background-color: @peach; color: #ffffff; }
+
+/* Campi di testo */
+entry:focus {
+    border-color: @peach_dark;
+    box-shadow: inset 0 0 0 1px @peach;
+}
+
+/* Barre di avanzamento e cursori */
+progressbar progress, scale fill, scale highlight {
+    background-color: @peach;
+}
+scrollbar slider {
+    background-color: #e3b8a1;
+    border-radius: 4px;
+    min-width: 8px;
+    min-height: 8px;
+}
+scrollbar slider:hover { background-color: @peach; }
+
+/* Caselle di controllo e pulsanti radio */
+checkbutton:checked check, radio:checked radio,
+checkbutton:active check, radio:active radio {
+    background-color: @peach;
+    border-color: @peach_dark;
+}
+
+/* Schede e suggerimenti */
+notebook tab:checked { background-color: @peach_soft; }
+tooltip, #tooltip {
+    background-color: #2b1d16;
+    color: #fdf2e9;
+    border-radius: 4px;
+}

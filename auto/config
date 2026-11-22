@@ -16,6 +16,7 @@ lb config noauto \
 	--linux-packages linux-image \
 	--binary-images iso-hybrid \
 	--bootloaders "grub-pc,grub-efi" \
+	--uefi-secure-boot enable \
 	--debian-installer false \
 	--archive-areas "main contrib non-free non-free-firmware" \
 	--apt-indices false \
@@ -30,5 +31,5 @@ lb config noauto \
 	--iso-application "Peach OS" \
 	--iso-volume "PEACHOS" \
 	--iso-publisher "Peach OS Project" \
-	--bootappend-live "boot=live components username=peach user-fullname=Peach hostname=peachos locales=it_IT.UTF-8 keyboard-layouts=it keyboard-model=pc105 timezone=Europe/Rome quiet" \
+	--bootappend-live "boot=live components username=peach user-fullname=Peach hostname=peachos locales=it_IT.UTF-8 keyboard-layouts=it keyboard-model=pc105 timezone=Europe/Rome quiet splash" \
 	"$@"

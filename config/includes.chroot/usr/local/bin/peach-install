@@ -1,0 +1,15 @@
+#!/bin/sh
+# Peach OS -- installa sul disco usando il wrapper live di Debian.
+# Sul supporto live sudo e' senza password: evitiamo la dipendenza da un
+# agente polkit e riproduciamo la procedura di calamares-install-debian.
+set -u
+
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+mv /etc/fstab /etc/fstab.orig.peach 2>/dev/null || true
+xhost +si:localuser:root >/dev/null 2>&1 || true
+
+sudo -E calamares
+
+xhost -si:localuser:root >/dev/null 2>&1 || true
+mv /etc/fstab.orig.peach /etc/fstab 2>/dev/null || true

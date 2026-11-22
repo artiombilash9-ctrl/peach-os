@@ -12,12 +12,16 @@ ha un'identità visiva dedicata (tema pesca, sfondi e splash originali).
 |---|---|
 | Base | Debian 13 «trixie», kernel `linux-image-amd64` |
 | Desktop | XFCE 4.20, LightDM con autologin |
-| Tema | Arc, icone Papirus, accento pesca (#ff7a45) |
+| Tema | Arc, icone Papirus, accento pesca (#ff7a45), GTK 2/3/4 e XFWM coerenti |
 | Applicazioni | Firefox ESR, Thunderbird, LibreOffice, GIMP, VLC, Transmission, GParted, Synaptic |
 | Hardware | firmware `non-free-firmware` + microcodice Intel/AMD |
 | Lingua | `it_IT.UTF-8`, tastiera italiana, fuso `Europe/Rome` |
 | Utente | `peach` / password `live`, sudo senza password |
-| Avvio | GRUB ibrido BIOS + UEFI, menu e splash brandizzati |
+| Avvio | GRUB ibrido BIOS + UEFI, menu e splash brandizzati, Plymouth con tema Peach |
+| Installazione | Calamares con branding Peach (supporta BIOS e UEFI) |
+| Persistenza | Voce dedicata nel menu per una partizione etichettata `persistence` |
+| Aggiornamenti | Via `apt` dai repository Debian (nessun archivio proprietario) |
+| Secure Boot | Catena di avvio UEFI firmata da Debian (shim + GRUB) |
 
 ## Requisiti
 
@@ -51,7 +55,11 @@ sudo ./build.sh
 
 `build.sh` pulisce automaticamente lo stadio `binary` prima di ricostruire,
 perché `live-build` non rileva le modifiche alla configurazione e altrimenti
-salterebbe la creazione della ISO.
+salterebbe la creazione della ISO. Se i file di configurazione generati da
+`live-build` (`config/common`, `config/bootstrap`, …) non ci sono — per esempio
+dopo aver sincronizzato i soli sorgenti — `build.sh` li rigenera da `auto/config`:
+senza questo passaggio la build userebbe i valori predefiniti (`distribution
+testing`) e ricostruirebbe il chroot con la distribuzione sbagliata.
 
 | Comando | Effetto |
 |---|---|
@@ -76,6 +84,7 @@ QEMU e salva degli screenshot:
 ```bash
 ./tools/screenshot-vm.py dist/PeachOS-1.0-amd64.iso --out screenshots
 ./tools/screenshot-vm.py dist/PeachOS-1.0-amd64.iso --out screenshots-uefi --uefi
+./tools/screenshot-vm.py dist/PeachOS-1.0-amd64.iso --out screenshots-sb --secure-boot
 ```
 
 ## Struttura del progetto
@@ -87,11 +96,13 @@ build.ps1                    build da Windows via WSL
 build.sh                     build su Linux (root)
 run-qemu.sh                  avvio di prova in QEMU
 config/
-  package-lists/*.list.chroot pacchetti installati (core, desktop, app, firmware)
+  package-lists/*.list.chroot pacchetti installati (core, desktop, app, installer)
   hooks/normal/*.hook.chroot  personalizzazioni eseguite nel chroot
   hooks/normal/*.hook.binary  personalizzazioni eseguite prima di creare la ISO
   includes.chroot/            file copiati nel filesystem della ISO
-  includes.binary/            file aggiunti alla ISO (font del menu GRUB)
+  includes.binary/            file aggiunti alla ISO (font e traduzione del menu GRUB)
+  includes.chroot/etc/calamares/branding/peach/   tema di Calamares
+  includes.chroot/usr/share/plymouth/themes/peach/ tema di avvio Plymouth
   bootloaders/                splash e tema del menu GRUB
 tools/                        setup ambiente, sync, build nel chroot, raccolta ISO
 ```
@@ -108,7 +119,12 @@ tools/                        setup ambiente, sync, build nel chroot, raccolta I
 | Nome e versione | `config/includes.chroot/etc/os-release` + `auto/config` |
 | Splash di avvio | `config/bootloaders/splash.svg` |
 | Menu GRUB | `config/bootloaders/grub-pc/live-theme/theme.txt` + `0300-peach-bootmenu.hook.binary` |
+| Installatore Calamares | `config/includes.chroot/etc/calamares/branding/peach/` |
+| Tema Plymouth | `config/includes.chroot/usr/share/plymouth/themes/peach/` |
+| Aggiornamenti | `config/includes.chroot/usr/local/bin/peach-update` |
+| Tema GTK | `config/includes.chroot/etc/skel/.config/gtk-{3.0,4.0}/gtk.css` e `.gtkrc-2.0` |
 | Font del menu GRUB | `config/includes.binary/boot/grub/fonts/peach16.pf2` (nome `Peach Sans Mono Regular 16`) |
+| Traduzione del menu GRUB | `config/includes.binary/boot/grub/locale/it.mo` (messaggi interni, es. conto alla rovescia) |
 | Applicazioni nel menu | `config/includes.chroot/usr/share/applications/` |
 
 Dopo ogni modifica basta rilanciare `build.ps1` (o `build.sh`).
@@ -118,22 +134,66 @@ Dopo ogni modifica basta rilanciare `build.ps1` (o `build.sh`).
 1. `auto/config` genera la configurazione di `live-build` (Debian 13, XFCE, ISO ibrida).
 2. `live-build` crea un chroot Debian con i pacchetti delle liste.
 3. Gli hook `*.hook.chroot` applicano locale, timezone, permessi e branding.
-4. Gli hook `*.hook.binary` rinomino le voci del menu GRUB, caricano il font
-   con gli accenti e impostano il timeout di avvio automatico.
-5. Il chroot viene compresso in SquashFS e inserito nella ISO con GRUB (BIOS + UEFI).
-6. `build.sh` rinomina l'immagine in `dist/PeachOS-1.0-amd64.iso` e ne calcola lo SHA-256.
+4. L'hook `0150` configura Calamares con il branding Peach, abilita il tema
+   Plymouth e rigenera l'initramfs; l'hook `0200` pulisce l'immagine.
+5. Gli hook `*.hook.binary` rinominano le voci del menu GRUB, caricano il font
+   con gli accenti, attivano la traduzione italiana, impostano il timeout e
+   aggiungono la voce di avvio con persistenza.
+6. Il chroot viene compresso in SquashFS e inserito nella ISO con GRUB (BIOS + UEFI).
+7. `build.sh` rinomina l'immagine in `dist/PeachOS-1.0-amd64.iso` e ne calcola lo SHA-256.
 
-## Limitazioni e prossimi passi
+## Installazione su disco
 
-- **Nessun installer grafico**: al momento è una live. Il passo naturale è aggiungere
-  Calamares (o il `debian-installer` in modalità live) per installare su disco.
-- **Nessuna persistenza**: le modifiche si perdono al riavvio. Si può aggiungere una
-  partizione con label `persistence` e il parametro `persistence` in avvio.
-- **Secure Boot**: i binari non sono firmati. Su PC con Secure Boot attivo va
-  disattivato, oppure va firmata la catena di avvio.
-- **URL e marchio**: `peachos.example.org` è un segnaposto; sostituiscilo con il tuo dominio.
-- **Repository proprio**: non c'è un archivio Peach OS dedicato; la distro usa i
-  repository Debian.
+Dalla sessione live apri **Installa Peach OS** (icona sulla Scrivania o voce nel
+menu). Vengono avviati Calamares e la configurazione Debian (`calamares-settings-debian`)
+con il branding Peach: lingua, tastiera, partizionamento, utente e bootloader.
+I file del sistema vengono presi da `/run/live/medium/live/filesystem.squashfs`;
+al termine l'installatore rimuove i pacchetti live e configura i repository Debian.
+
+## Persistenza
+
+Le modifiche alla sessione live vengono conservate avviando con la voce
+**Peach OS 1.0 — Live con persistenza** e preparando una partizione etichettata
+`persistence` (su chiavetta o disco):
+
+```bash
+sudo mkfs.ext4 -L persistence /dev/sdXN        # SOSTITUISCI sdXN!
+sudo mkdir -p /mnt/persist
+sudo mount /dev/sdXN /mnt/persist
+echo "/ union" | sudo tee /mnt/persist/persistence.conf
+sudo umount /mnt/persist
+```
+
+`/ union` rende persistente l'intero filesystem; per salvare solo la cartella
+dell'utente usa `/home union`. Senza la partizione la voce di avvio si comporta
+come una normale sessione live.
+
+## Aggiornamenti
+
+Non esiste un archivio Peach OS dedicato: pacchetti e aggiornamenti arrivano dai
+repository Debian (`trixie`, `trixie-security`, `trixie-updates`). La voce
+**Aggiorna Peach OS** apre un terminale ed esegue `apt update` e `apt full-upgrade`.
+
+## Secure Boot
+
+L'avvio UEFI usa `shim-signed` e `grub-efi-amd64-signed` forniti da Debian: la
+catena di avvio è firmata con le chiavi Debian/Microsoft e anche il kernel è
+firmato da Debian. Su PC con Secure Boot attivo non è necessario disattivarlo
+né registrare chiavi MOK aggiuntive.
+
+## Tema e avvio grafico
+
+Il tema Peach copre GTK 2, GTK 3 e GTK 4, il window manager XFWM, le icone
+Papirus e il greeter LightDM. La sequenza di avvio è brandizzata in due passaggi:
+splash del menu GRUB e Plymouth con il tema `peach` (logo centrato e indicatore
+di avvio), inclusa nell'initramfs.
+
+## Prossimi passi
+
+- Sostituire gli URL segnaposto nei file `.desktop` e nella documentazione con un
+  sito/Homepage definitivo.
+- Aggiungere un repository apt Peach OS solo se si intende distribuire pacchetti
+  propri; al momento la distro usa esclusivamente Debian.
 
 ## Note legali
 

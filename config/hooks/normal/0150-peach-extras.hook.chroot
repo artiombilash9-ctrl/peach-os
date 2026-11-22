@@ -1,0 +1,31 @@
+#!/bin/sh
+# Peach OS -- configurazione di installatore, aggiornamenti e avvio grafico.
+set -e
+
+echo "P: Peach OS -- installatore e avvio grafico"
+
+# Calamares: manteniamo la sequenza di moduli fornita da Debian e sostituiamo
+# solo il branding con quello Peach.
+if [ -f /etc/calamares/settings.conf ]; then
+	sed -i 's/^branding:.*/branding: peach/' /etc/calamares/settings.conf
+fi
+
+# Il lanciatore Debian generico viene sostituito da peach-install.desktop.
+rm -f /usr/share/applications/calamares-install-debian.desktop
+rm -f /etc/xdg/autostart/calamares-desktop-icon.desktop
+
+# Permessi dei nuovi file (il filesystem Windows non li conserva).
+chmod 0755 /usr/local/bin/peach-install /usr/local/bin/peach-update
+chmod 0755 /etc/skel/Desktop/peach-install.desktop
+chmod 0644 /etc/skel/Desktop/peach-welcome.desktop
+chmod 0644 /usr/share/applications/peach-update.desktop
+chmod 0644 /etc/plymouth/plymouthd.conf
+chmod -R a+rX /usr/share/plymouth/themes/peach /etc/calamares/branding/peach
+
+# Rigenera l'initramfs includendo il tema Plymouth selezionato in
+# /etc/plymouth/plymouthd.conf (peach).
+plymouth-set-default-theme -R peach > /dev/null 2>&1 || \
+	update-initramfs -u > /dev/null 2>&1 || true
+
+echo "P: Peach OS -- installatore e avvio grafico configurati"
+exit 0

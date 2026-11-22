@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Installa Peach OS
+Name[it]=Installa Peach OS
+Comment=Avvia l'installatore grafico Calamares
+Comment[it]=Avvia l'installatore grafico Calamares
+Exec=peach-install
+Icon=install-debian
+Terminal=false
+Categories=System;
+StartupNotify=true

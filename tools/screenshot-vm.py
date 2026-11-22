@@ -104,6 +104,8 @@ def main():
     parser.add_argument("--cpus", default="2")
     parser.add_argument("--no-kvm", action="store_true")
     parser.add_argument("--uefi", action="store_true", help="avvia in modalita' UEFI (OVMF)")
+    parser.add_argument("--secure-boot", action="store_true",
+                        help="UEFI con Secure Boot attivo (firmware Microsoft)")
     parser.add_argument("--ovmf-dir", default="/usr/share/OVMF")
     args = parser.parse_args()
 
@@ -131,9 +133,10 @@ def main():
     if not args.no_kvm and os.path.exists("/dev/kvm"):
         command.insert(1, "-enable-kvm")
 
-    if args.uefi:
-        code = os.path.join(args.ovmf_dir, "OVMF_CODE_4M.fd")
-        vars_source = os.path.join(args.ovmf_dir, "OVMF_VARS_4M.fd")
+    if args.uefi or args.secure_boot:
+        suffix = ".ms" if args.secure_boot else ""
+        code = os.path.join(args.ovmf_dir, "OVMF_CODE_4M%s.fd" % suffix)
+        vars_source = os.path.join(args.ovmf_dir, "OVMF_VARS_4M%s.fd" % suffix)
         for path in (code, vars_source):
             if not os.path.isfile(path):
                 sys.exit("Firmware OVMF non trovato: " + path)
