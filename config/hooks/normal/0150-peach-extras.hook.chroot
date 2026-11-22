@@ -22,6 +22,16 @@ chmod 0644 /usr/share/applications/peach-update.desktop
 chmod 0644 /etc/plymouth/plymouthd.conf
 chmod -R a+rX /usr/share/plymouth/themes/peach /etc/calamares/branding/peach
 
+# Firewall: politica predefinita sicura (nega in ingresso, consenti in uscita).
+# La configurazione viene salvata anche per il sistema installato; l'interfaccia
+# grafica e' gufw, presente nel menu di XFCE e Plasma.
+if command -v ufw > /dev/null 2>&1; then
+	ufw --force reset > /dev/null 2>&1 || true
+	ufw default deny incoming > /dev/null 2>&1 || true
+	ufw default allow outgoing > /dev/null 2>&1 || true
+	ufw --force enable > /dev/null 2>&1 || true
+fi
+
 # Rigenera l'initramfs includendo il tema Plymouth selezionato in
 # /etc/plymouth/plymouthd.conf (peach).
 plymouth-set-default-theme -R peach > /dev/null 2>&1 || \

@@ -35,6 +35,9 @@ for cfg in boot/grub/grub.cfg isolinux/live.cfg; do
 				echo "else"
 				echo "  clear"
 				echo "fi"
+				# Mouse GRUB: moduli USB/HID, solo su BIOS (su UEFI in
+				# lockdown i moduli non firmati verrebbero rifiutati).
+				echo 'if [ "${grub_platform}" = "pc" ]; then insmod usb; insmod usbms; insmod gfxmenu; insmod gfxterm_menu; fi'
 			fi
 			echo "loadfont /boot/grub/fonts/peach16.pf2"
 			echo "set timeout=10"

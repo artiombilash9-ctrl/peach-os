@@ -1,8 +1,12 @@
 # Peach OS 1.0 «Trixie»
 
-Distribuzione Linux **live** basata su **Debian 13 (trixie)** con desktop **XFCE**,
-costruita con `live-build`. Avvia sia in **BIOS** che in **UEFI**, è in italiano e
-ha un'identità visiva dedicata (tema pesca, sfondi e splash originali).
+Distribuzione Linux **live** basata su **Debian 13 (trixie)** con desktop **XFCE**
+(e **KDE Plasma** selezionabile), costruita con `live-build`. Avvia sia in **BIOS**
+che in **UEFI**, è in italiano e ha un'identità visiva dedicata (tema pesca,
+sfondi e splash originali).
+
+**Sito del progetto:** https://artiombilash9-ctrl.github.io/peach-os/ — sorgente
+in [`docs/`](docs/), pubblicato su GitHub Pages dalla branch `main`.
 
 ![Peach OS](config/includes.chroot/usr/share/backgrounds/peachos/peach-wallpaper.svg)
 
@@ -11,7 +15,7 @@ ha un'identità visiva dedicata (tema pesca, sfondi e splash originali).
 | Componente | Scelta |
 |---|---|
 | Base | Debian 13 «trixie», kernel `linux-image-amd64` |
-| Desktop | XFCE 4.20, LightDM con autologin |
+| Desktop | XFCE 4.20 (predefinito) e KDE Plasma selezionabile in LightDM |
 | Tema | Arc, icone Papirus, accento pesca (#ff7a45), GTK 2/3/4 e XFWM coerenti |
 | Applicazioni | Firefox ESR, Thunderbird, LibreOffice, GIMP, VLC, Transmission, GParted, Synaptic |
 | Hardware | firmware `non-free-firmware` + microcodice Intel/AMD |
@@ -22,6 +26,9 @@ ha un'identità visiva dedicata (tema pesca, sfondi e splash originali).
 | Persistenza | Voce dedicata nel menu per una partizione etichettata `persistence` |
 | Aggiornamenti | Via `apt` dai repository Debian (nessun archivio proprietario) |
 | Secure Boot | Catena di avvio UEFI firmata da Debian (shim + GRUB) |
+| Mouse nel bootloader | GRUB con supporto mouse USB su BIOS |
+| Sicurezza | SELinux in modalità permissive, firewall ufw con interfaccia gufw |
+| Sito | https://artiombilash9-ctrl.github.io/peach-os/ |
 
 ## Requisiti
 
@@ -209,12 +216,27 @@ kernel.
 Il tema Peach copre GTK 2, GTK 3 e GTK 4, il window manager XFWM, le icone
 Papirus e il greeter LightDM. La sequenza di avvio è brandizzata in due passaggi:
 splash del menu GRUB e Plymouth con il tema `peach` (logo centrato e indicatore
-di avvio), inclusa nell'initramfs.
+di avvio), inclusa nell'initramfs. Il menu GRUB include il supporto mouse USB
+sui sistemi BIOS.
+
+## KDE Plasma
+
+Oltre a XFCE (sessione predefinita) la ISO include **KDE Plasma**: dal menu delle
+sessioni di LightDM, in alto a destra, scegli «Plasma». Il colore d'accento di
+Plasma è impostato sul pesca di Peach OS.
+
+## Sicurezza
+
+- **SELinux** è installato con la policy Debian e avviato in modalità
+  `permissive`: registra le violazioni senza bloccare le applicazioni. Su un
+  sistema installato puoi passare a `enforcing` con `sudo peach-selinux-enforce`,
+  dopo aver controllato i log con `sudo ausearch -m AVC -ts recent`.
+- **ufw** è configurato con «nega in ingresso, consenti in uscita» e abilitato.
+  Per gestirlo in grafica apri **Firewall** (gufw), presente nel menu di XFCE e
+  di Plasma.
 
 ## Prossimi passi
 
-- Sostituire gli URL segnaposto nei file `.desktop` e nella documentazione con un
-  sito/Homepage definitivo.
 - Aggiungere un repository apt Peach OS solo se si intende distribuire pacchetti
   propri; al momento la distro usa esclusivamente Debian.
 

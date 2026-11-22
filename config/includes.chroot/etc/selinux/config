@@ -1,0 +1,8 @@
+# Configurazione SELinux di Peach OS.
+# La modalita' permissive registra le violazioni senza bloccare le app:
+# e' il modo sicuro per includere SELinux in una live con desktop completi.
+# Sulla sistema installato e' possibile passare a "enforcing" con:
+#   sudo peach-selinux-enforce
+SELINUX=permissive
+SELINUXTYPE=default
+SETLOCALDEFS=0

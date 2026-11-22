@@ -31,5 +31,5 @@ lb config noauto \
 	--iso-application "Peach OS" \
 	--iso-volume "PEACHOS" \
 	--iso-publisher "Peach OS Project" \
-	--bootappend-live "boot=live components username=peach user-fullname=Peach hostname=peachos locales=it_IT.UTF-8 keyboard-layouts=it keyboard-model=pc105 timezone=Europe/Rome quiet splash" \
+	--bootappend-live "boot=live components username=peach user-fullname=Peach hostname=peachos locales=it_IT.UTF-8 keyboard-layouts=it keyboard-model=pc105 timezone=Europe/Rome selinux=1 quiet splash" \
 	"$@"

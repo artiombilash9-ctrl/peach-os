@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peach OS — una live Debian 13 in italiano</title>
+  <meta name="description" content="Peach OS è una distribuzione live basata su Debian 13 Trixie, con XFCE e KDE Plasma, installer Calamares, persistenza, Secure Boot e aggiornamenti dai repository Debian.">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#contenuto">Vai al contenuto</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Peach OS, torna all'inizio">
+        <img src="assets/logo.svg" alt="" width="36" height="36">
+        <span>Peach OS</span>
+      </a>
+      <nav aria-label="Navigazione principale">
+        <ul class="nav">
+          <li><a href="#panoramica">Panoramica</a></li>
+          <li><a href="#funzionalita">Funzionalità</a></li>
+          <li><a href="#requisiti">Requisiti</a></li>
+          <li><a href="#iniziare">Per iniziare</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenuto">
+    <section class="hero" id="top">
+      <div class="wrap hero-inner">
+        <div>
+          <p class="eyebrow">Debian 13 “Trixie” · kernel 6.12</p>
+          <h1>Un sistema live,<br>già in italiano.</h1>
+          <p class="lead">Peach OS unisce XFCE e KDE Plasma a un installatore grafico,
+            alla persistenza e a una catena di avvio firmata. Si avvia da USB,
+            funziona in BIOS e UEFI e si aggiorna direttamente da Debian.</p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/artiombilash9-ctrl/peach-os#build">Costruisci la ISO</a>
+            <a class="button secondary" href="https://github.com/artiombilash9-ctrl/peach-os">Leggi il codice</a>
+          </div>
+        </div>
+        <figure class="hero-shot">
+          <img src="assets/screenshot-desktop.png" alt="Desktop di Peach OS con lo sfondo pesca e la finestra di benvenuto in italiano" width="1024" height="768">
+          <figcaption>La sessione live al primo avvio.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="panoramica" class="section">
+      <div class="wrap narrow">
+        <h2>Panoramica</h2>
+        <p>La ISO è un sistema live completo: 113 pacchetti selezionati, firmware
+          liberi e non liberi inclusi, locale <code>it_IT.UTF-8</code>, tastiera
+          italiana e fuso <code>Europe/Rome</code>. L'utente live è
+          <code>peach</code> con password <code>live</code> e sudo senza password.</p>
+        <p>Non pubblichiamo la ISO come release: il progetto distribuisce i
+          sorgenti e uno script che ricostruisce l'immagine in un chroot Debian 13.
+          Il risultato è una ISO ibrida di circa 2,2&nbsp;GB, avviabile sia da BIOS
+          sia da UEFI.</p>
+      </div>
+    </section>
+
+    <section id="funzionalita" class="section tinted">
+      <div class="wrap">
+        <h2>Funzionalità</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Due desktop</h3>
+            <p>XFCE 4.20 è la sessione predefinita; KDE Plasma è installato e
+              selezionabile dal menu di LightDM. Tema pesca coerente su GTK 2/3/4,
+              XFWM e Plasma.</p>
+          </article>
+          <article class="card">
+            <h3>Installazione guidata</h3>
+            <p>Calamares con branding Peach OS: lingua, tastiera, partizionamento,
+              utente e bootloader. Rimuove i pacchetti live e configura i
+              repository Debian sul sistema installato.</p>
+          </article>
+          <article class="card">
+            <h3>Persistenza</h3>
+            <p>Una voce dedicata del menu avvia con <code>persistence</code>: basta
+              una partizione etichettata <code>persistence</code> con un file
+              <code>persistence.conf</code> per conservare le modifiche.</p>
+          </article>
+          <article class="card">
+            <h3>Sicurezza</h3>
+            <p>SELinux con policy Debian in modalità permissive e firewall ufw
+              configurato “nega in ingresso, consenti in uscita”, con interfaccia
+              grafica gufw.</p>
+          </article>
+          <article class="card">
+            <h3>Avvio curato</h3>
+            <p>GRUB ibrido con tema e splash Peach, supporto mouse su BIOS,
+              countdown tradotto e shim/GRUB firmati per Secure Boot. Plymouth
+              mostra il logo e l'avanzamento dell'avvio.</p>
+          </article>
+          <article class="card">
+            <h3>Aggiornamenti Debian</h3>
+            <p>Nessun archivio proprietario: <code>apt update</code> e
+              <code>apt full-upgrade</code> usano trixie, trixie-security e
+              trixie-updates. Lo strumento “Aggiorna Peach OS” li esegue in
+              un terminale.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Da vicino</h2>
+        <div class="shots">
+          <figure>
+            <img src="assets/screenshot-grub.png" alt="Menu GRUB brandizzato Peach OS con le voci in italiano e la voce di avvio con persistenza" width="800" height="600" loading="lazy">
+            <figcaption>Il menu GRUB: voci tradotte, accenti corretti e persistenza.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/screenshot-plymouth.png" alt="Schermata di avvio Plymouth con il logo Peach OS e la percentuale di avvio" width="1280" height="720" loading="lazy">
+            <figcaption>Plymouth, con logo e indicatore di avvio.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="requisiti" class="section tinted">
+      <div class="wrap narrow">
+        <h2>Requisiti</h2>
+        <table>
+          <caption>Requisiti minimi e consigliati per usare Peach OS</caption>
+          <thead>
+            <tr><th scope="col">Componente</th><th scope="col">Minimo</th><th scope="col">Consigliato</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">CPU</th><td>x86-64 a 1 GHz</td><td>dual-core o superiore</td></tr>
+            <tr><th scope="row">RAM</th><td>2 GB in live</td><td>4 GB o più</td></tr>
+            <tr><th scope="row">Chiavetta USB</th><td>4 GB</td><td>8 GB+ per la persistenza</td></tr>
+            <tr><th scope="row">Disco (installazione)</th><td>15 GB</td><td>25 GB+</td></tr>
+            <tr><th scope="row">Video</th><td>VESA / UEFI GOP, 1024×768</td><td>1920×1080</td></tr>
+            <tr><th scope="row">Firmware</th><td>BIOS o UEFI</td><td>UEFI con Secure Boot</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="iniziare" class="section">
+      <div class="wrap narrow">
+        <h2>Per iniziare</h2>
+        <ol class="steps">
+          <li><strong>Clona il repository.</strong> <code>git clone https://github.com/artiombilash9-ctrl/peach-os.git</code></li>
+          <li><strong>Costruisci la ISO.</strong> Su Debian 13, <code>sudo ./build.sh --full</code>; su Windows, <code>build.ps1</code> prepara il chroot WSL.</li>
+          <li><strong>Scrivi l'immagine su USB.</strong> <code>dd if=dist/PeachOS-1.0-amd64.iso of=/dev/sdX bs=4M status=progress</code> — controlla due volte il nome del dispositivo.</li>
+          <li><strong>Avvia e prova.</strong> Scegli “Peach OS 1.0 — Live”; dal menu puoi usare la persistenza o introdurti con Calamares.</li>
+        </ol>
+        <p class="note">La documentazione completa, le opzioni di build e la struttura del
+          progetto sono nel <a href="https://github.com/artiombilash9-ctrl/peach-os#readme">README</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>Peach OS è un progetto dimostrativo non affiliato a Debian, XFCE o KDE.
+        «Debian» è un marchio della Software in the Public Interest, Inc.</p>
+      <p><a href="https://github.com/artiombilash9-ctrl/peach-os">Repository</a> ·
+         <a href="https://github.com/artiombilash9-ctrl/peach-os#readme">Documentazione</a> ·
+         <a href="https://www.debian.org/">Debian</a></p>
+    </div>
+  </footer>
+</body>
+</html>

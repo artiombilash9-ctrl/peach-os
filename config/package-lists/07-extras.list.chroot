@@ -1,0 +1,15 @@
+# Peach OS -- desktop alternativo e sicurezza
+#
+# KDE Plasma resta selezionabile dal menu di LightDM: XFCE rimane la
+# sessione predefinita della live.
+task-kde-desktop
+
+# SELinux (permissive di default, documentato nel README)
+selinux-basics
+selinux-policy-default
+selinux-utils
+auditd
+
+# Firewall con interfaccia grafica
+ufw
+gufw
