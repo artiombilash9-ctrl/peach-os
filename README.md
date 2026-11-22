@@ -38,7 +38,7 @@ in [`docs/`](docs/), pubblicato su GitHub Pages dalla branch `main`.
 |---|---|---|
 | CPU | x86-64 (amd64) a 1 GHz | dual-core o superiore |
 | RAM | 2 GB (sessione live) | 4 GB o più |
-| Supporto di avvio | chiavetta USB da 4 GB (ISO da 2,2 GB) | 8 GB+, per usare anche la persistenza |
+| Supporto di avvio | chiavetta USB da 8 GB (ISO da 2,9 GB) | 16 GB+, per usare anche la persistenza |
 | Disco per l'installazione | 15 GB (controllo di Calamares) | 25 GB+ |
 | Video | VESA / UEFI GOP, 1024×768 | 1920×1080 (sfondo e tema) |
 | Firmware | BIOS o UEFI | UEFI con Secure Boot (catena firmata inclusa) |
