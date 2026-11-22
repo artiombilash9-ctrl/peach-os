@@ -18,3 +18,4 @@
 *.png           binary
 *.iso           binary
 *.deb           binary
+*.pf2           binary

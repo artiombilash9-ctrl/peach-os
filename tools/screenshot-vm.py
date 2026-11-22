@@ -103,6 +103,8 @@ def main():
     parser.add_argument("--memory", default="3072")
     parser.add_argument("--cpus", default="2")
     parser.add_argument("--no-kvm", action="store_true")
+    parser.add_argument("--uefi", action="store_true", help="avvia in modalita' UEFI (OVMF)")
+    parser.add_argument("--ovmf-dir", default="/usr/share/OVMF")
     args = parser.parse_args()
 
     if not os.path.isfile(args.iso):
@@ -128,6 +130,20 @@ def main():
     ]
     if not args.no_kvm and os.path.exists("/dev/kvm"):
         command.insert(1, "-enable-kvm")
+
+    if args.uefi:
+        code = os.path.join(args.ovmf_dir, "OVMF_CODE_4M.fd")
+        vars_source = os.path.join(args.ovmf_dir, "OVMF_VARS_4M.fd")
+        for path in (code, vars_source):
+            if not os.path.isfile(path):
+                sys.exit("Firmware OVMF non trovato: " + path)
+        vars_copy = os.path.join(args.out, "ovmf-vars.fd")
+        with open(vars_source, "rb") as source, open(vars_copy, "wb") as target:
+            target.write(source.read())
+        command[1:1] = [
+            "-drive", "if=pflash,format=raw,readonly=on,file=" + code,
+            "-drive", "if=pflash,format=raw,file=" + vars_copy,
+        ]
 
     print("==> avvio QEMU")
     process = subprocess.Popen(

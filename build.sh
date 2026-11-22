@@ -32,7 +32,29 @@ chmod +x config/includes.chroot/usr/local/bin/* 2>/dev/null || true
 
 mkdir -p dist
 
-lb build "$@"
+# live-build non si accorge delle modifiche alla configurazione: senza pulire
+# lo stadio interessato salta i passaggi e non produce alcuna ISO.
+#   ./build.sh          pulisce solo lo stadio binary (veloce, ~4 min)
+#   ./build.sh --full   ricostruisce anche il chroot (lento)
+#   ./build.sh --no-clean  non pulisce nulla (solo se non hai toccato nulla)
+CLEAN_MODE="--binary"
+LB_ARGS=()
+for arg in "$@"; do
+	case "${arg}" in
+		--full)     CLEAN_MODE="--chroot --binary" ;;
+		--no-clean) CLEAN_MODE="" ;;
+		*)          LB_ARGS+=("${arg}") ;;
+	esac
+done
+
+if [ -n "${CLEAN_MODE}" ]; then
+	echo "==> lb clean ${CLEAN_MODE}"
+	# voluto il word splitting: sono piu' opzioni separate
+	# shellcheck disable=SC2086
+	lb clean ${CLEAN_MODE}
+fi
+
+lb build "${LB_ARGS[@]}"
 
 ISO="$(ls -1 ./*.hybrid.iso 2>/dev/null | head -n1 || true)"
 if [ -z "${ISO}" ]; then

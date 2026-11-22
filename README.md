@@ -49,6 +49,16 @@ sudo apt install live-build debootstrap debian-archive-keyring \
 sudo ./build.sh
 ```
 
+`build.sh` pulisce automaticamente lo stadio `binary` prima di ricostruire,
+perché `live-build` non rileva le modifiche alla configurazione e altrimenti
+salterebbe la creazione della ISO.
+
+| Comando | Effetto |
+|---|---|
+| `./build.sh` | ricostruisce lo stadio binary (veloce, ~5 min) |
+| `./build.sh --full` | ricostruisce anche il chroot (lento, 20–40 min) |
+| `./build.sh --no-clean` | non pulisce nulla: usalo solo se non hai modificato niente |
+
 ## Provarla
 
 ```bash
@@ -65,6 +75,7 @@ QEMU e salva degli screenshot:
 
 ```bash
 ./tools/screenshot-vm.py dist/PeachOS-1.0-amd64.iso --out screenshots
+./tools/screenshot-vm.py dist/PeachOS-1.0-amd64.iso --out screenshots-uefi --uefi
 ```
 
 ## Struttura del progetto
@@ -80,6 +91,7 @@ config/
   hooks/normal/*.hook.chroot  personalizzazioni eseguite nel chroot
   hooks/normal/*.hook.binary  personalizzazioni eseguite prima di creare la ISO
   includes.chroot/            file copiati nel filesystem della ISO
+  includes.binary/            file aggiunti alla ISO (font del menu GRUB)
   bootloaders/                splash e tema del menu GRUB
 tools/                        setup ambiente, sync, build nel chroot, raccolta ISO
 ```
@@ -96,6 +108,7 @@ tools/                        setup ambiente, sync, build nel chroot, raccolta I
 | Nome e versione | `config/includes.chroot/etc/os-release` + `auto/config` |
 | Splash di avvio | `config/bootloaders/splash.svg` |
 | Menu GRUB | `config/bootloaders/grub-pc/live-theme/theme.txt` + `0300-peach-bootmenu.hook.binary` |
+| Font del menu GRUB | `config/includes.binary/boot/grub/fonts/peach16.pf2` (nome `Peach Sans Mono Regular 16`) |
 | Applicazioni nel menu | `config/includes.chroot/usr/share/applications/` |
 
 Dopo ogni modifica basta rilanciare `build.ps1` (o `build.sh`).
@@ -105,7 +118,8 @@ Dopo ogni modifica basta rilanciare `build.ps1` (o `build.sh`).
 1. `auto/config` genera la configurazione di `live-build` (Debian 13, XFCE, ISO ibrida).
 2. `live-build` crea un chroot Debian con i pacchetti delle liste.
 3. Gli hook `*.hook.chroot` applicano locale, timezone, permessi e branding.
-4. Gli hook `*.hook.binary` rinominano le voci del menu GRUB.
+4. Gli hook `*.hook.binary` rinomino le voci del menu GRUB, caricano il font
+   con gli accenti e impostano il timeout di avvio automatico.
 5. Il chroot viene compresso in SquashFS e inserito nella ISO con GRUB (BIOS + UEFI).
 6. `build.sh` rinomina l'immagine in `dist/PeachOS-1.0-amd64.iso` e ne calcola lo SHA-256.
 
