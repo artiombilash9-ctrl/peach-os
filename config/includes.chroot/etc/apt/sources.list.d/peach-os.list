@@ -1,0 +1,3 @@
+# Repository ufficiale Peach OS, ospitato su GitHub Pages.
+# La chiave e' installata in /etc/apt/keyrings/peach-os.gpg.
+deb [signed-by=/etc/apt/keyrings/peach-os.gpg] https://artiombilash9-ctrl.github.io/peach-os/repo stable main

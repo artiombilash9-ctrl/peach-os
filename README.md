@@ -24,7 +24,7 @@ in [`docs/`](docs/), pubblicato su GitHub Pages dalla branch `main`.
 | Avvio | GRUB ibrido BIOS + UEFI, menu e splash brandizzati, Plymouth con tema Peach |
 | Installazione | Calamares con branding Peach (supporta BIOS e UEFI) |
 | Persistenza | Voce dedicata nel menu per una partizione etichettata `persistence` |
-| Aggiornamenti | Via `apt` dai repository Debian (nessun archivio proprietario) |
+| Aggiornamenti | Via `apt` da Debian + repository Peach OS su GitHub Pages |
 | Secure Boot | Catena di avvio UEFI firmata da Debian (shim + GRUB) |
 | Mouse nel bootloader | GRUB con supporto mouse USB su BIOS |
 | Sicurezza | SELinux in modalità permissive, firewall ufw con interfaccia gufw |
@@ -192,11 +192,33 @@ sudo umount /mnt/persist
 dell'utente usa `/home union`. Senza la partizione la voce di avvio si comporta
 come una normale sessione live.
 
-## Aggiornamenti
+## Aggiornamenti e repository Peach OS
 
-Non esiste un archivio Peach OS dedicato: pacchetti e aggiornamenti arrivano dai
-repository Debian (`trixie`, `trixie-security`, `trixie-updates`). La voce
-**Aggiorna Peach OS** apre un terminale ed esegue `apt update` e `apt full-upgrade`.
+Il sistema usa i repository Debian (`trixie`, `trixie-security`,
+`trixie-updates`) più il **repository ufficiale Peach OS**, ospitato su GitHub Pages
+all'indirizzo:
+
+```
+https://artiombilash9-ctrl.github.io/peach-os/repo
+```
+
+Il file `/etc/apt/sources.list.d/peach-os.list` è già presente nella ISO e nella
+sistema installato, insieme alla chiave in `/etc/apt/keyrings/peach-os.gpg`: i
+metadati del repository sono firmati con GPG. La voce **Aggiorna Peach OS** apre
+un terminale ed esegue `apt update` e `apt full-upgrade`, che quindi includono
+anche i pacchetti Peach OS.
+
+Per installare la configurazione del repository su un sistema che non ce l'ha:
+
+```bash
+sudo apt install peach-os-repo
+```
+
+Per **pubblicare un aggiornamento** del sistema: aggiungi il `.deb` in
+`docs/repo/pool/main/` (o aggregalo in `repo-src/`), esegui `./tools/build-repo.sh`,
+poi committa e pusha: GitHub Pages pubblica automaticamente i nuovi indici. La
+chiave privata GPG di firma resta al manutentore e **non va committata**; con una
+chiave diversa usa `PEACH_GPG_UID="..." ./tools/build-repo.sh`.
 
 ## Secure Boot
 

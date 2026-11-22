@@ -1,0 +1,24 @@
+Architectures: amd64 all
+Codename: stable
+Components: main
+Date: Sun, 22 Nov 2026 20:26:29 +0000
+Description: Repository ufficiale Peach OS
+Label: Peach OS
+Origin: Peach OS
+Suite: stable
+MD5Sum:
+ a7f17dd51694a6163b4732d105f99f16              187 Release
+ 83773f219c5790b49b0b12143ff890f2              829 main/binary-amd64/Packages
+ 816aa4f26c2a49205f4c8c36a26c45c8              557 main/binary-amd64/Packages.gz
+SHA1:
+ 6f424564507e3ff95edf5176802b2bc49d140ed9              187 Release
+ 4bb78c56b011f30c4cf112131b49651b2dfcf4f1              829 main/binary-amd64/Packages
+ dd463fed43af5550798b9161de7592bea189cee4              557 main/binary-amd64/Packages.gz
+SHA256:
+ 424ea0bd3f465d8f3027824d29f018485c804dccf4c591732086f030e7ca66ec              187 Release
+ 3a5dfcb54157e6c38b1e8a6ed108909ae74749ba8f65288628e8415f745b0fbe              829 main/binary-amd64/Packages
+ cc1220b0971561a1fcdf0a0c3de6fe5b816c0815720ed886529d8e3b23519d85              557 main/binary-amd64/Packages.gz
+SHA512:
+ 7c2eab2302a4a2d040e34b49bdd7e36b8a4adfbf4674b2b286963dc72b81836ed62c5a4d06e8687efa3334354617a4aedb2b6571b8480ad79d796d971f24598f              187 Release
+ 734b6c3fe55e48d9a447b3be554fe50427929cb8924ed1d76f3ac641304ade50335413e9ee7ab0b46f0b8c4cad7eeff33085102d6861dbee065641397221838f              829 main/binary-amd64/Packages
+ 7753a822bad5836ffba0065e9f1a657174c785478b5b7e6965ccda01f9db7ef99c8b991e3d44ec4d82028d475f8e14df8ff3c408dae1a38e1a0a72c60c75670d              557 main/binary-amd64/Packages.gz

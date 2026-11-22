@@ -1,0 +1,18 @@
+Package: peach-os-repo
+Architecture: all
+Version: 1.0
+Priority: optional
+Section: misc
+Maintainer: Peach OS <peach-os@artiombilash9-ctrl.github.io>
+Filename: pool/main/p/peach-os-repo/peach-os-repo_1.0_all.deb
+Size: 2032
+MD5sum: fe624216aaa347618d6d5937f650bcfc
+SHA1: 562aa4b73c243a46e0e9687d3571eb37e4f3fbaf
+SHA256: fa4be78f989e7839735d5141da58c90f8b404506525616b48dd553f67d3b61cd
+SHA512: e908461af7907fa777e31227b902da39559629dd9f1d35d14b8a89c24dd9967bcfb1c104c103437d4c91d1e2fb4992e5eb623a91cba3250796e0b860a35688d4
+Homepage: https://artiombilash9-ctrl.github.io/peach-os/
+Description: Repository apt ufficiale di Peach OS
+ Installa la chiave pubblica e il file sources.list del repository
+ Peach OS ospitato su GitHub Pages. Gli aggiornamenti del sistema
+ vengono cosi' scaricati dai repository Debian e da quello Peach OS.
+
