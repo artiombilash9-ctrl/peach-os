@@ -45,12 +45,18 @@ for cfg in boot/grub/grub.cfg isolinux/live.cfg; do
 	fi
 done
 
-# Il GRUB EFI firmato da Debian non include il modulo png: con Secure Boot
-# (lockdown) `insmod png` verrebbe rifiutato e bloccherebbe il menu. GRUB
-# esporta la variabile "lockdown" quando e' in quella modalita': in quel
-# caso saltiamo il caricamento; senza splash il menu resta leggibile.
+# Con Secure Boot GRUB e' in lockdown: rifiuta il modulo png (non firmato)
+# e i comandi `terminal_output`/`play`. L'esecuzione di questi comandi
+# interrompe lo script anche se racchiusi in un `if`. Su EFI (dove il
+# terminale grafico e' gia' attivo) li saltiamo del tutto; restano attivi
+# solo sul BIOS, dove non c'e' lockdown.
 if [ -e boot/grub/config.cfg ]; then
-	sed -i 's|^insmod png$|if [ -n "${lockdown}" ]; then set peach_png=skip; else insmod png; fi|' boot/grub/config.cfg
+	sed -E -i \
+		-e 's|^insmod png$|if [ "${grub_platform}" = "pc" ]; then insmod png; fi|' \
+		-e 's#^([[:space:]]*)insmod (efi_gop|efi_uga|video_bochs|video_cirrus|all_video|gfxterm)$#\1if [ "${grub_platform}" = "pc" ]; then insmod \2; fi#' \
+		-e 's|^terminal_output gfxterm$|if [ "${grub_platform}" = "pc" ]; then terminal_output gfxterm; fi|' \
+		-e 's|^play 960 440 1 0 4 440 1$|if [ "${grub_platform}" = "pc" ]; then play 960 440 1 0 4 440 1; fi|' \
+		boot/grub/config.cfg
 fi
 
 # Persistenza: aggiungiamo una voce che riusa kernel e initrd della prima

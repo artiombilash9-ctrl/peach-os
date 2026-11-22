@@ -181,6 +181,12 @@ catena di avvio è firmata con le chiavi Debian/Microsoft e anche il kernel è
 firmato da Debian. Su PC con Secure Boot attivo non è necessario disattivarlo
 né registrare chiavi MOK aggiuntive.
 
+In lockdown GRUB rifiuta i comandi grafici non firmati: in Secure Boot il menu
+viene mostrato in modalità testuale e può comparire un avviso non bloccante
+(«prohibited by secure boot policy») prima del menu. L'avvio prosegue
+normalmente; i test con firmware OVMF Microsoft arrivano al menu e avviano il
+kernel.
+
 ## Tema e avvio grafico
 
 Il tema Peach copre GTK 2, GTK 3 e GTK 4, il window manager XFWM, le icone
