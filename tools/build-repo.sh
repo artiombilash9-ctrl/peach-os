@@ -44,15 +44,20 @@ dpkg-deb --root-owner-group --build -Zxz "$BUILD/peach-os-repo" \
 	"$POOL/p/peach-os-repo/peach-os-repo_1.0_all.deb"
 
 echo "==> indici"
+mkdir -p "$DIST/main/binary-i386"
 ( cd "$REPO" && apt-ftparchive packages pool/main > "$ROOT/$DIST/main/binary-amd64/Packages" )
 gzip -9 -c "$DIST/main/binary-amd64/Packages" > "$DIST/main/binary-amd64/Packages.gz"
+# La variante i386 non ha pacchetti dedicati, ma l'indice deve esistere
+# perche' apt non segnali un'architettura non supportata.
+: > "$DIST/main/binary-i386/Packages"
+gzip -9 -c "$DIST/main/binary-i386/Packages" > "$DIST/main/binary-i386/Packages.gz"
 rm -f "$DIST/Release" "$DIST/InRelease" "$DIST/Release.gpg"
 ( cd "$REPO" && apt-ftparchive \
 	-o APT::FTPArchive::Release::Origin="Peach OS" \
 	-o APT::FTPArchive::Release::Label="Peach OS" \
 	-o APT::FTPArchive::Release::Suite="stable" \
 	-o APT::FTPArchive::Release::Codename="stable" \
-	-o APT::FTPArchive::Release::Architectures="amd64 all" \
+	-o APT::FTPArchive::Release::Architectures="amd64 i386 all" \
 	-o APT::FTPArchive::Release::Components="main" \
 	-o APT::FTPArchive::Release::Description="Repository ufficiale Peach OS" \
 	release dists/stable > dists/stable/Release )

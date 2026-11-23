@@ -6,10 +6,10 @@ Section: misc
 Maintainer: Peach OS <peach-os@artiombilash9-ctrl.github.io>
 Filename: pool/main/p/peach-os-repo/peach-os-repo_1.0_all.deb
 Size: 2032
-MD5sum: fe624216aaa347618d6d5937f650bcfc
-SHA1: 562aa4b73c243a46e0e9687d3571eb37e4f3fbaf
-SHA256: fa4be78f989e7839735d5141da58c90f8b404506525616b48dd553f67d3b61cd
-SHA512: e908461af7907fa777e31227b902da39559629dd9f1d35d14b8a89c24dd9967bcfb1c104c103437d4c91d1e2fb4992e5eb623a91cba3250796e0b860a35688d4
+MD5sum: caa1aec873117eb3a2580859567bf07e
+SHA1: 25011facf214d0c19c3814cc592a56b01ef6f8a5
+SHA256: 9b922125f97661bfc499476550bc6a0d74e2ad322c1007b0005f3caba13393c9
+SHA512: e9e86d4be8cffb7287fd5bd61fef93a3268d0ae1aef969a7b3956add2b69975c79b7bd38ac570a1e734ce43638a771ecc6882503758e635db2e153ddf540cee8
 Homepage: https://artiombilash9-ctrl.github.io/peach-os/
 Description: Repository apt ufficiale di Peach OS
  Installa la chiave pubblica e il file sources.list del repository

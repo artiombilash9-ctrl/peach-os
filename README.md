@@ -29,6 +29,7 @@ in [`docs/`](docs/), pubblicato su GitHub Pages dalla branch `main`.
 | Mouse nel bootloader | GRUB con supporto mouse USB su BIOS |
 | Sicurezza | SELinux in modalità permissive, firewall ufw con interfaccia gufw |
 | Sito | https://artiombilash9-ctrl.github.io/peach-os/ |
+| Variante 32 bit | ISO i386 su Debian 12 bookworm (`dist/PeachOS-1.0-i386.iso`) |
 
 ## Requisiti
 
@@ -257,10 +258,30 @@ Plasma è impostato sul pesca di Peach OS.
   Per gestirlo in grafica apri **Firewall** (gufw), presente nel menu di XFCE e
   di Plasma.
 
+## Versione 32 bit (i386)
+
+Debian 13 «trixie» non pubblica più kernel i386 avviabili, quindi la variante a
+32 bit è basata su **Debian 12 «bookworm»** con kernel `686-pae` (PAE, fino a 64 GB
+di RAM indirizzabile). Per costruirla:
+
+```bash
+sudo ./tools/build-i386.sh
+```
+
+Lo script prepara un albero di build separato in `/srv/peach-build/build/peach-os-i386`,
+disattiva `fastfetch` (non presente in bookworm/i386) e produce
+`dist/PeachOS-1.0-i386.iso` con relativo checksum. La ISO include gli stessi
+elementi della versione 64 bit (XFCE, Plasma, Calamares, Plymouth, SELinux,
+firewall, tema e repository apt, che ora pubblica anche l'indice `binary-i386`).
+
+Nota: l'avvio UEFI 32 bit richiede firmware con supporto `bootia32.efi`, non
+presente in molte schede a 64 bit; su quei sistemi usare il BIOS legacy oppure
+la versione amd64.
+
 ## Prossimi passi
 
-- Aggiungere un repository apt Peach OS solo se si intende distribuire pacchetti
-  propri; al momento la distro usa esclusivamente Debian.
+- Pubblicare pacchetti Peach OS nel repository firmato quando ce ne sarà bisogno;
+  l'infrastruttura (`tools/build-repo.sh`) è già pronta.
 
 ## Note legali
 

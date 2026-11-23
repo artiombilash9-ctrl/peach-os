@@ -98,6 +98,12 @@
               mostra il logo e l'avanzamento dell'avvio.</p>
           </article>
           <article class="card">
+            <h3>Versione 32 bit</h3>
+            <p>Oltre alla ISO amd64 c'è una variante i386 basata su Debian 12
+              bookworm con kernel 686-pae: Debian 13 non pubblica più kernel
+              32 bit. Stesso desktop, installer e repository firmato.</p>
+          </article>
+          <article class="card">
             <h3>Aggiornamenti e repository</h3>
             <p><code>apt update</code> e <code>apt full-upgrade</code> usano
               Debian (trixie, security, updates) e il repository firmato Peach OS
@@ -150,7 +156,7 @@
         <ol class="steps">
           <li><strong>Clona il repository.</strong> <code>git clone https://github.com/artiombilash9-ctrl/peach-os.git</code></li>
           <li><strong>Costruisci la ISO.</strong> Su Debian 13, <code>sudo ./build.sh --full</code>; su Windows, <code>build.ps1</code> prepara il chroot WSL.</li>
-          <li><strong>Scrivi l'immagine su USB.</strong> <code>dd if=dist/PeachOS-1.0-amd64.iso of=/dev/sdX bs=4M status=progress</code> — controlla due volte il nome del dispositivo.</li>
+          <li><strong>Scrivi l'immagine su USB.</strong> <code>dd if=dist/PeachOS-1.0-amd64.iso of=/dev/sdX bs=4M status=progress</code> — controlla due volte il nome del dispositivo. Per i vecchi PC a 32 bit usa <code>PeachOS-1.0-i386.iso</code>, costruita con <code>tools/build-i386.sh</code>.</li>
           <li><strong>Avvia e prova.</strong> Scegli “Peach OS 1.0 — Live”; dal menu puoi usare la persistenza o introdurti con Calamares.</li>
         </ol>
         <p class="note">La documentazione completa, le opzioni di build e la struttura del
