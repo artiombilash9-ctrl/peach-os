@@ -1,0 +1,36 @@
+#!/bin/sh
+# Peach OS -- indurimento eseguito una sola volta sul sistema installato.
+# Nella sessione live (/run/live/medium presente) non fa nulla.
+set -eu
+
+if [ -e /run/live/medium ]; then
+	exit 0
+fi
+if [ -e /var/lib/peach/firstboot.done ]; then
+	exit 0
+fi
+
+mkdir -p /var/lib/peach
+
+# 1. Il sudo senza password e' una comodita' della sola sessione live.
+rm -f /etc/sudoers.d/peach
+
+# 2. Nessun autologin su un sistema installato: LightDM chiede la password.
+cat > /etc/lightdm/lightdm.conf.d/50-peach.conf <<'EOF'
+[Seat:*]
+user-session=xfce
+greeter-session=lightdm-gtk-greeter
+greeter-hide-users=false
+EOF
+
+# 3. Attiva gli aggiornamenti automatici di sicurezza.
+sed -i 's/"0"/"1"/' /etc/apt/apt.conf.d/10peach-periodic 2>/dev/null || true
+systemctl enable apt-daily.timer apt-daily-upgrade.timer >/dev/null 2>&1 || true
+
+# 4. Riafferma la policy del firewall.
+if command -v ufw >/dev/null 2>&1; then
+	ufw --force enable >/dev/null 2>&1 || true
+fi
+
+touch /var/lib/peach/firstboot.done
+exit 0

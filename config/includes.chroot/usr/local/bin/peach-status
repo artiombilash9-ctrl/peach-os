@@ -1,0 +1,47 @@
+#!/bin/bash
+# Peach OS -- stato del sistema e della sicurezza, in un terminale.
+set -u
+
+line() { printf '%s\n' "------------------------------------------------------------"; }
+
+clear
+printf 'Peach OS — stato del sistema\n'
+line
+printf 'Host        : %s\n' "$(hostname)"
+printf 'Kernel      : %s\n' "$(uname -r)"
+printf 'Sessione    : %s\n' "${XDG_CURRENT_DESKTOP:-sconosciuta}"
+printf 'Uptime      : %s\n' "$(uptime -p 2>/dev/null || uptime)"
+line
+printf 'Rete\n'
+ip -br addr 2>/dev/null | grep -v '^lo' | head -10 || echo '  (nessuna interfaccia di rete)'
+line
+printf 'Firewall\n'
+if command -v ufw >/dev/null 2>&1; then
+	ufw status 2>/dev/null | head -8
+else
+	echo '  ufw non installato'
+fi
+line
+printf 'SELinux\n'
+if command -v getenforce >/dev/null 2>&1; then
+	printf '  Modalita: %s\n' "$(getenforce)"
+else
+	echo '  SELinux non disponibile'
+fi
+line
+printf 'Aggiornamenti\n'
+if [ -r /etc/apt/apt.conf.d/10peach-periodic ]; then
+	UP=$(grep 'Unattended-Upgrade' /etc/apt/apt.conf.d/10peach-periodic | tr -dc '0-9')
+	if [ "${UP:-0}" = "1" ]; then
+		echo '  Aggiornamenti automatici di sicurezza: attivi'
+	else
+		echo "  Aggiornamenti automatici: attivi solo dopo l'installazione"
+	fi
+fi
+line
+printf 'Disco\n'
+df -h / /home 2>/dev/null | grep -v '^Filesystem' | head -4
+line
+printf 'Sicurezza live: password senza sudo solo nella sessione live.\n'
+printf 'Premi Invio per chiudere...\n'
+read -r _ || true

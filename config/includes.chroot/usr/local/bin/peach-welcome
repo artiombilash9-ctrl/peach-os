@@ -14,9 +14,15 @@ Una distribuzione live basata su Debian 13 con desktop XFCE.
 <b>Primi passi</b>
   • Connettiti alla rete dall'icona di rete nel pannello
   • Installa o rimuovi pacchetti con Synaptic
+  • Apri «Stato e sicurezza» per vedere firewall e aggiornamenti
   • Peach OS gira interamente in RAM: nessuna modifica al disco
 
-<b>Utente live:</b> peach   ·   <b>Password:</b> live   ·   <b>sudo:</b> senza password
+<b>Sicurezza</b>
+  • Firewall attivo: connessioni in ingresso bloccate
+  • SELinux in modalità permissive (registra senza bloccare)
+  • Aggiornamenti da Debian e dal repository Peach OS
+
+<b>Utente live:</b> peach   ·   <b>Password:</b> live   ·   <b>sudo:</b> senza password solo in live
 
 <i>Progetto dimostrativo. Debian è un marchio della Software in the Public Interest, Inc.</i>"
 

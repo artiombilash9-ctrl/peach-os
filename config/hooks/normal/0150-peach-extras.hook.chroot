@@ -32,6 +32,16 @@ if command -v ufw > /dev/null 2>&1; then
 	ufw --force enable > /dev/null 2>&1 || true
 fi
 
+# Servizio di indurimento: nella live non fa nulla, sul sistema installato
+# rimuove il sudo senza password e l'autologin e attiva gli aggiornamenti.
+chmod 0755 /usr/local/bin/peach-firstboot /usr/local/bin/peach-status
+chmod 0644 /usr/share/applications/peach-status.desktop \
+	/etc/systemd/system/peach-firstboot.service \
+	/etc/apt/apt.conf.d/10peach-periodic \
+	/etc/apt/apt.conf.d/52peach-unattended \
+	/usr/lib/firefox-esr/distribution/policies.json 2>/dev/null || true
+systemctl enable peach-firstboot.service > /dev/null 2>&1 || true
+
 # Rigenera l'initramfs includendo il tema Plymouth selezionato in
 # /etc/plymouth/plymouthd.conf (peach).
 plymouth-set-default-theme -R peach > /dev/null 2>&1 || \

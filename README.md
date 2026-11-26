@@ -257,6 +257,23 @@ Plasma è impostato sul pesca di Peach OS.
 - **ufw** è configurato con «nega in ingresso, consenti in uscita» e abilitato.
   Per gestirlo in grafica apri **Firewall** (gufw), presente nel menu di XFCE e
   di Plasma.
+- **Firefox ESR** usa una policy che abilita HTTPS-only, blocca il tracking e
+  disattiva telemetria e studi, senza impedirti di cambiarle.
+
+### Dopo l'installazione
+
+Il servizio `peach-firstboot` si esegue una sola volta sul sistema installato
+(non nella sessione live) e applica:
+
+- rimozione del `sudo` senza password;
+- disattivazione dell'autologin di LightDM (serve la password);
+- attivazione di **unattended-upgrades** per Debian-Security e il repository
+  Peach OS;
+- riaffermazione della policy del firewall.
+
+Il comando **Stato e sicurezza**, nel menu delle applicazioni, mostra in un
+terminale firewall, modalità SELinux, aggiornamenti, rete e spazio disco.
+Per passare SELinux da permissive a enforcing c'è `sudo peach-selinux-enforce`.
 
 ## Versione 32 bit (i386)
 

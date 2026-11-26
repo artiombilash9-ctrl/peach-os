@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Stato e sicurezza
+Name[it]=Stato e sicurezza
+Comment=Mostra firewall, SELinux, aggiornamenti e stato del sistema
+Exec=peach-status
+Icon=preferences-system
+Terminal=true
+Categories=System;Security;

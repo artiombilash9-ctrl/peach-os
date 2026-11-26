@@ -1,0 +1,13 @@
+{
+  "policies": {
+    "DisableTelemetry": true,
+    "DisableFirefoxStudies": true,
+    "EnableTrackingProtection": {
+      "Value": true,
+      "Locked": false
+    },
+    "HTTPSOnlyMode": 2,
+    "NoDefaultBrowserCheck": true,
+    "PromptForDownloadLocation": true
+  }
+}

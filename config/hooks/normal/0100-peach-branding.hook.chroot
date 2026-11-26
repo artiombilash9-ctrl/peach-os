@@ -20,7 +20,8 @@ visudo -c > /dev/null
 
 # ------------------------------------------------------------ permessi -----
 chmod 0755 /usr/local/bin/peach-welcome /usr/local/bin/peach-session-setup \
-	/usr/local/bin/peach-selinux-enforce
+	/usr/local/bin/peach-selinux-enforce /usr/local/bin/peach-firstboot \
+	/usr/local/bin/peach-status
 chmod 0755 /etc/skel/Desktop/peach-welcome.desktop
 chmod 0644 /etc/xdg/autostart/peach-session-setup.desktop
 chmod 0644 /usr/share/applications/peach-welcome.desktop
