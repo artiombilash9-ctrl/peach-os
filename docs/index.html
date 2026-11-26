@@ -21,6 +21,7 @@
         <ul class="nav">
           <li><a href="#panoramica">Panoramica</a></li>
           <li><a href="#funzionalita">Funzionalità</a></li>
+          <li><a href="download.html">Scarica</a></li>
           <li><a href="#requisiti">Requisiti</a></li>
           <li><a href="#iniziare">Per iniziare</a></li>
         </ul>
@@ -38,7 +39,7 @@
             alla persistenza e a una catena di avvio firmata. Si avvia da USB,
             funziona in BIOS e UEFI e si aggiorna direttamente da Debian.</p>
           <div class="actions">
-            <a class="button primary" href="https://github.com/artiombilash9-ctrl/peach-os#build">Costruisci la ISO</a>
+            <a class="button primary" href="download.html">Scarica Peach OS</a>
             <a class="button secondary" href="https://github.com/artiombilash9-ctrl/peach-os">Leggi il codice</a>
           </div>
         </div>
@@ -155,8 +156,8 @@
       <div class="wrap narrow">
         <h2>Per iniziare</h2>
         <ol class="steps">
-          <li><strong>Clona il repository.</strong> <code>git clone https://github.com/artiombilash9-ctrl/peach-os.git</code></li>
-          <li><strong>Costruisci la ISO.</strong> Su Debian 13, <code>sudo ./build.sh --full</code>; su Windows, <code>build.ps1</code> prepara il chroot WSL.</li>
+          <li><strong>Scarica le ISO.</strong> Vai alla <a href="download.html">pagina download</a>: trovi le parti per amd64 e i386 e le istruzioni per ricomporle.</li>
+          <li><strong>Oppure costruiscile.</strong> Clona il repository e, su Debian 13, esegui <code>sudo ./build.sh --full</code>; su Windows, <code>build.ps1</code> prepara il chroot WSL.</li>
           <li><strong>Scrivi l'immagine su USB.</strong> <code>dd if=dist/PeachOS-1.0-amd64.iso of=/dev/sdX bs=4M status=progress</code> — controlla due volte il nome del dispositivo. Per i vecchi PC a 32 bit usa <code>PeachOS-1.0-i386.iso</code>, costruita con <code>tools/build-i386.sh</code>.</li>
           <li><strong>Avvia e prova.</strong> Scegli “Peach OS 1.0 — Live”; dal menu puoi usare la persistenza o introdurti con Calamares.</li>
         </ol>

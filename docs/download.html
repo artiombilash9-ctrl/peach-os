@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scarica Peach OS 1.0</title>
+  <meta name="description" content="Scarica le ISO di Peach OS 1.0 per amd64 e i386, verifica il checksum e crea una chiavetta avviabile.">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#contenuto">Vai al contenuto</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Peach OS, torna alla home">
+        <img src="assets/logo.svg" alt="" width="36" height="36">
+        <span>Peach OS</span>
+      </a>
+      <nav aria-label="Navigazione principale">
+        <ul class="nav">
+          <li><a href="index.html#panoramica">Panoramica</a></li>
+          <li><a href="index.html#funzionalita">Funzionalità</a></li>
+          <li><a href="download.html">Scarica</a></li>
+          <li><a href="index.html#requisiti">Requisiti</a></li>
+          <li><a href="https://github.com/artiombilash9-ctrl/peach-os">Codice</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenuto">
+    <section class="hero">
+      <div class="wrap narrow">
+        <p class="eyebrow">Versione 1.0 · ISO avviabili</p>
+        <h1>Scarica Peach OS.</h1>
+        <p class="lead">Scegli l'architettura, scarica entrambe le parti, ricompila l'ISO
+          e verificala con il checksum. Nessun account richiesto: gli asset sono
+          pubblicati nella sezione Release del progetto.</p>
+      </div>
+    </section>
+
+    <section class="section tinted" id="iso">
+      <div class="wrap">
+        <h2>Immagini disponibili</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>amd64 · 64 bit</h3>
+            <p>Debian 13 «Trixie», kernel 6.12, XFCE e Plasma. ISO di 2,9 GB,
+              BIOS/UEFI con Secure Boot.</p>
+            <p class="actions">
+              <a class="button primary" href="https://github.com/artiombilash9-ctrl/peach-os/releases/download/v1.0/PeachOS-1.0-amd64.iso.part00">Parte 00 · 1,8 GB</a>
+              <a class="button primary" href="https://github.com/artiombilash9-ctrl/peach-os/releases/download/v1.0/PeachOS-1.0-amd64.iso.part01">Parte 01 · 1,2 GB</a>
+            </p>
+            <p><a href="https://github.com/artiombilash9-ctrl/peach-os/releases/download/v1.0/PeachOS-1.0-amd64.iso.sha256">Checksum SHA-256</a></p>
+          </article>
+
+          <article class="card">
+            <h3>i386 · 32 bit</h3>
+            <p>Debian 12 «Bookworm», kernel 686-pae, XFCE e Plasma. ISO di 2,6 GB
+              per PC e UEFI legacy a 32 bit.</p>
+            <p class="actions">
+              <a class="button primary" href="https://github.com/artiombilash9-ctrl/peach-os/releases/download/v1.0/PeachOS-1.0-i386.iso.part00">Parte 00 · 1,8 GB</a>
+              <a class="button primary" href="https://github.com/artiombilash9-ctrl/peach-os/releases/download/v1.0/PeachOS-1.0-i386.iso.part01">Parte 01 · 777 MB</a>
+            </p>
+            <p><a href="https://github.com/artiombilash9-ctrl/peach-os/releases/download/v1.0/PeachOS-1.0-i386.iso.sha256">Checksum SHA-256</a></p>
+          </article>
+        </div>
+        <p class="note">GitHub limita a 2 GiB ogni file allegato ai Release: per questo
+          le ISO sono divise in due parti. La somma di controllo è calcolata
+          sull'ISO ricomposta, non sulle singole parti.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap narrow">
+        <h2>Ricompilare e verificare</h2>
+        <ol class="steps">
+          <li><strong>Scarica entrambe le parti</strong> dell'architettura scelta e mettile
+            nella stessa cartella (per esempio <code>release-assets/</code>).</li>
+          <li><strong>Ricompila l'ISO:</strong>
+            <code>./tools/join-iso.sh amd64</code> (oppure <code>i386</code>).
+            Lo script è nel repository, cartella <code>tools/</code>.</li>
+          <li><strong>Verifica il checksum</strong> stampato dallo script: deve coincidere
+            con il valore nel file <code>.sha256</code> del Release.</li>
+          <li><strong>Scrivi su USB:</strong>
+            <code>dd if=PeachOS-1.0-amd64.iso of=/dev/sdX bs=4M status=progress</code>
+            — controlla due volte il nome del dispositivo. Su Windows usa Rufus
+            o balenaEtcher.</li>
+        </ol>
+        <p class="note">Vuoi partire dai sorgenti invece? Leggi la
+          <a href="https://github.com/artiombilash9-ctrl/peach-os#build">guida alla build</a>
+          nel README.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>Peach OS è un progetto dimostrativo non affiliato a Debian, XFCE o KDE.
+        «Debian» è un marchio della Software in the Public Interest, Inc.</p>
+      <p><a href="https://github.com/artiombilash9-ctrl/peach-os/releases/tag/v1.0">Release v1.0</a> ·
+         <a href="https://github.com/artiombilash9-ctrl/peach-os">Repository</a> ·
+         <a href="index.html">Home</a></p>
+    </div>
+  </footer>
+</body>
+</html>

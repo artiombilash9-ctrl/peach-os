@@ -7,6 +7,25 @@ sfondi e splash originali).
 
 **Sito del progetto:** https://artiombilash9-ctrl.github.io/peach-os/ — sorgente
 in [`docs/`](docs/), pubblicato su GitHub Pages dalla branch `main`.
+**Download:** https://artiombilash9-ctrl.github.io/peach-os/download.html —
+le ISO sono pubblicate nel [Release v1.0](https://github.com/artiombilash9-ctrl/peach-os/releases/tag/v1.0).
+
+## Scarica Peach OS
+
+Le ISO da 2,9 GB (amd64) e 2,6 GB (i386) superano il limite di 2 GiB per file
+degli asset GitHub: sono pubblicate come due parti ciascuna. Dopo aver scaricato
+entrambe le parti di un'architettura:
+
+```bash
+git clone https://github.com/artiombilash9-ctrl/peach-os.git
+cd peach-os
+# copia qui le parti scaricate, poi:
+./tools/join-iso.sh amd64      # oppure i386
+```
+
+Lo script ricompone l'ISO e verifica il checksum SHA-256 pubblicato nel Release.
+Puoi anche scaricare direttamente le parti e ricomporle a mano con
+`cat PeachOS-1.0-amd64.iso.part* > PeachOS-1.0-amd64.iso`.
 
 ![Peach OS](config/includes.chroot/usr/share/backgrounds/peachos/peach-wallpaper.svg)
 
